@@ -1,4 +1,4 @@
-![UNIT PULSAR RP2350A V1.0.0](resources/top_0v1.png)
+![UNIT PULSAR RP2350A V1.0.0](resources/top_1v1.png)
 
 We are currently working on the design of this new development board, **UNIT PULSAR RP2350A**, at UNIT Electronics.  
 This compact NANO-format board is based on the **RP230A** microcontroller and is part of the PULSAR series — designed for rapid prototyping, embedded systems education, and low-power applications.
