@@ -1,15 +1,16 @@
-# DevLab: PULSAR RP2350A Development Board
+# UNIT PULSAR RP2350 Development Board
 
 
-The DevLab PULSAR RP2350A is a multi-interface development board based on the
-Raspberry Pi RP2350A microcontroller. The preview V1.3 hardware integrates
+The UNIT PULSAR RP2350 is a multi-interface development board in the UNIT
+DevLab ecosystem, based on the Raspberry Pi RP2350A microcontroller. The
+V1.3 hardware integrates
 external QSPI flash and PSRAM, motion sensing, PDM audio, microSD storage,
 addressable RGB indicators, USB-C, QWIIC I²C, battery support, and a 22-pin
 HSTX expansion connector.
 
 <div align="center">
-  <img src="hardware/resources/unit_top_v_1_3_0_pulsar_rp2350a.png" width="450px" alt="DevLab PULSAR RP2350A Development Board">
-  <p><em>DevLab PULSAR RP2350A Development Board</em></p>
+  <img src="hardware/resources/unit_top_v_1_3_0_pulsar_rp2350a.png" width="450px" alt="UNIT PULSAR RP2350 Development Board">
+  <p><em>UNIT PULSAR RP2350 Development Board</em></p>
 </div>
 
 <div align="center">
@@ -67,10 +68,9 @@ for details. Third-party reference files may have separate terms.
   <sub>Template created by UNIT Electronics</sub>
 </div>
 
-> **Note of Development:**
-> The V1.3 hardware design is complete and awaiting fabrication; the
-> documentation remains in preview. Electrical limits, mechanical dimensions,
-> connector orientation, and wiki examples will be confirmed on the first
-> manufactured units. The V1.3 source package identifies the
-> RP2350A, while the available schematic title block still says `PULSAR RP230A`
-> and revision `1.0.0`; this document-control inconsistency is pending correction.
+> **Documentation Note:**
+> Electrical limits, mechanical dimensions, and connector orientation not
+> defined by the V1.3 source package are identified as unspecified. The source
+> package identifies the RP2350A, while the schematic title block says
+> `PULSAR RP230A` and revision `1.0.0`; the BOM and artwork identify the fitted
+> controller and hardware revision used by this documentation.
