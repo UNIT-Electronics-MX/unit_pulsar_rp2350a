@@ -2,19 +2,16 @@
 
 ## Hardware Scope
 
-This hardware reference covers the V1.3.0 board artwork and the V1.3
-schematic/BOM package. It separates design-defined connections from values not
-specified by the available board-level documentation. The schematic title block says `PULSAR RP230A` and
-`REV: 1.0.0`, although the filename, board artwork, BOM, and fitted controller
-identify the product as UNIT PULSAR RP2350 V1.3.0 with an RP2350A controller.
+This hardware reference covers hardware revision V1.3.0 and its schematic. It
+separates design-defined connections from values not specified by the available
+board-level documentation. The board uses an RP2350A controller; the schematic
+title block says `PULSAR RP230A` and `REV: 1.0.0`.
 
 ## Naming Rules
 
 - Product name: **UNIT PULSAR RP2350 Multi-Interface Development Board**.
 - Product family: **UNIT DevLab ecosystem**; `DevLab` is not part of the
   product name.
-- Manufacturer Part Number: **UE0103**; use it only in manufacturing and
-  document-control fields.
 - Source assets use lowercase, descriptive names and explicit
   revisions, for example `unit_top_v_1_3_0_pulsar_rp2350a.png`.
 - Generated Product Reference files use
@@ -37,7 +34,7 @@ identify the product as UNIT PULSAR RP2350 V1.3.0 with an RP2350A controller.
 | J5 | FH34SRJ-22S-0.5SH(50) | 22-position, 0.5 mm HSTX expansion connector |
 | JP1 | PH2.0 2P | Two-position battery connection |
 
-The BOM component ratings are not module ratings. In particular, the allowed
+Individual component ratings are not module ratings. In particular, the allowed
 `VIN`, `VBAT`, and 3.3 V rail loads are not specified at module level.
 
 ![UNIT PULSAR RP2350 top view](resources/unit_top_v_1_3_0_pulsar_rp2350a.png)
@@ -47,7 +44,7 @@ The BOM component ratings are not module ratings. In particular, the allowed
 ## Pinout
 
 The following mapping is transcribed from the V1.3 schematic and visible board
-labels. `D8` and `D9` appear on the artwork but are not traced to RP2350A GPIOs
+labels. `D8` and `D9` appear on the board but are not traced to RP2350A GPIOs
 in the available schematic; treat them as unassigned.
 
 | Board label | RP2350A connection | Function / status |
@@ -124,12 +121,12 @@ power-path specification.
   GPIO25/SCL. Cable orientation is not specified by a controlled drawing.
 - **J5 HSTX:** 22-position FFC/FPC connector exposing D0–D7, A0, A1,
   GPIO24/SDA, GPIO25/SCL, 3.3 V, and return pins according to the schematic.
-  A controlled pin-number table is not included in the source package.
+  A complete pin-number table is not included in the technical documentation.
 - **microSD:** four-bit SDIO connection (CLK, CMD, DAT0–DAT3).
 - **JP1 battery:** two-position battery connector; polarity is shown on the
-  bottom artwork. Compatible battery and cable assemblies are not specified.
+  bottom side. Compatible batteries and cables are not specified.
 - **SWD pads:** `SWDIO`, `SWCLK`, 3.3 V, and GND test/programming pads are
-  visible on the bottom artwork.
+  visible on the bottom side.
 
 ## Functional Description
 
