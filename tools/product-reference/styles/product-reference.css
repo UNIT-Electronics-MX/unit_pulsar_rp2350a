@@ -326,6 +326,19 @@ body {
   break-before: auto;
 }
 
+.section-page {
+  break-before: page;
+}
+
+.schematic-page {
+  break-before: page;
+}
+
+.schematic-page img {
+  width: 100%;
+  max-height: 235mm;
+}
+
 h2 {
   margin: 0 0 6mm;
   padding-bottom: 3mm;

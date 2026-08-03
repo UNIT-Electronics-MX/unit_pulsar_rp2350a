@@ -14,15 +14,29 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 
+PDF_RENDERER=""
+PDF_RENDERER_COMMAND=()
+
 if command -v weasyprint >/dev/null 2>&1; then
-  WEASYPRINT=(weasyprint)
+  PDF_RENDERER="weasyprint"
+  PDF_RENDERER_COMMAND=(weasyprint)
 else
   BUNDLED_SITE_PACKAGES="$PROJECT_DIR/tools/product-reference/venv/lib/python3.12/site-packages"
   if [[ -d "$BUNDLED_SITE_PACKAGES" ]] && \
     PYTHONPATH="$BUNDLED_SITE_PACKAGES" python3 -c 'import weasyprint' 2>/dev/null; then
-    WEASYPRINT=(env "PYTHONPATH=$BUNDLED_SITE_PACKAGES" python3 -m weasyprint)
+    PDF_RENDERER="weasyprint"
+    PDF_RENDERER_COMMAND=(env "PYTHONPATH=$BUNDLED_SITE_PACKAGES" python3 -m weasyprint)
+  elif command -v google-chrome >/dev/null 2>&1; then
+    PDF_RENDERER="chrome"
+    PDF_RENDERER_COMMAND=(google-chrome)
+  elif command -v chromium >/dev/null 2>&1; then
+    PDF_RENDERER="chrome"
+    PDF_RENDERER_COMMAND=(chromium)
+  elif command -v chromium-browser >/dev/null 2>&1; then
+    PDF_RENDERER="chrome"
+    PDF_RENDERER_COMMAND=(chromium-browser)
   else
-    echo "Error: required command not found: weasyprint" >&2
+    echo "Error: a PDF renderer is required: weasyprint, Google Chrome, or Chromium" >&2
     exit 1
   fi
 fi
@@ -148,7 +162,16 @@ pandoc \
   "${CHAPTER_PATHS[@]}" \
   --output="$HTML_FILE"
 
-"${WEASYPRINT[@]}" "$HTML_FILE" "$PDF_FILE"
+if [[ "$PDF_RENDERER" == "weasyprint" ]]; then
+  "${PDF_RENDERER_COMMAND[@]}" "$HTML_FILE" "$PDF_FILE"
+else
+  "${PDF_RENDERER_COMMAND[@]}" \
+    --headless \
+    --no-sandbox \
+    --disable-gpu \
+    --print-to-pdf="$PDF_FILE" \
+    "file://$HTML_FILE"
+fi
 
 if [[ ! -s "$PDF_FILE" ]]; then
   echo "Error: WeasyPrint did not generate the PDF." >&2

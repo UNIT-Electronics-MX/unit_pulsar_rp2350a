@@ -1,120 +1,213 @@
 ## **3 Functional Overview**
 
-### **3.1 Processing and Boot Memory**
+The PULSAR RP2350A is organized around the RP2350A processor, with dedicated
+external memories and fixed onboard peripherals. Firmware can use each block
+independently or combine acquisition, storage, user feedback, and video in one
+application.
 
-The RP2350A is the central controller for the board and provides the GPIO,
-ADC, I2C, PIO, USB, and HSTX resources used by the onboard subsystems. Program
-storage is provided by the external W25Q128JVPIQ QSPI flash, with a capacity of
-128 Mbit (16 MiB). The BOOT pushbutton controls the flash boot-selection path,
-and the reset control restarts the RP2350A without removing board power.
+### **3.1 Block Diagram** {.section-page}
 
-The board is intended to be programmed through USB-C using the UNIT
-RP2040/RP2350 board package or another RP2350-compatible toolchain. The wiki
-uses the user LED as the first upload and execution check before enabling the
-remaining peripherals.
+![](hardware/resources/unit_block_diagram_v_1_3_0_pulsar_rp2350a.png){width=7.0in}
 
-### **3.2 Internal and External Memory**
+The RP2350A controls every data path. W25Q128 flash stores executable code and
+nonvolatile application data. PSRAM extends working memory. The microSD socket
+provides removable storage. BMI270 and ICS-41350 devices provide motion and
+audio input. QWIIC and edge pads expose expansion signals, while HSTX and the
+LEDs provide high-speed and visual outputs.
 
-The RP2350A provides 520 KiB of internal SRAM for low-latency program data. An
-APS6404L-3SQR-ZR adds 8 MiB of external PSRAM for framebuffers, acquisition
-buffers, large arrays, and other data that would otherwise consume internal
-SRAM. Its chip-select is connected to GPIO0.
+### **3.2 Board Topology** {.section-page}
 
-In the Arduino workflow described by the wiki, selecting `PSRAM CS = GPIO 0`
-enables the board definition to initialize this memory. Applications can then
-place static buffers in PSRAM or request dynamic allocations from its heap.
-Time-critical data can remain in internal SRAM while display buffers, logged
-data, and other large objects are kept in PSRAM.
+The top side groups programming, processing, memory, and user-visible controls.
+USB-C, BOOT, reset, QSPI flash, PSRAM, RP2350A, QWIIC, and RGB indicators are
+visible from this side. The bottom side groups removable storage, battery,
+audio, SWD, and HSTX connections.
 
-### **3.3 Motion Sensing and I2C Expansion**
+| Board region | Main elements | Design intent |
+|---|---|---|
+| USB end | USB-C, BOOT, reset, power/charge indicators | Programming and initial power-up |
+| Upper center | power-path devices and PSRAM | Source routing and working-memory expansion |
+| Center | RP2350A and 12 MHz oscillator | Processing and clock generation |
+| Lower center | QSPI flash and PDM microphone area | boot storage and audio acquisition |
+| QWIIC end | three RGB LEDs and QWIIC connector | status display and external I2C |
+| Bottom side | battery, microSD, BMI270, SWD, HSTX | storage, sensing, debug, and video expansion |
 
-The onboard BMI270 six-axis IMU uses the internal I2C pair on GPIO8 (`SDA`) and
-GPIO9 (`SCL`). Firmware reads its accelerometer and gyroscope data over this
-bus for motion, orientation, and user-interface applications.
+The two edge-pad rows expose power, analog, serial, and general-purpose
+signals. Some HSTX-routed signals are shared with edge positions, so firmware
+ownership must be decided before enabling high-speed video.
 
-The QWIIC connector provides a separate I2C path on GPIO24 (`SDA`) and GPIO25
-(`SCL`), together with 3.3 V and GND. This allows external sensors, EEPROMs,
-and other I2C peripherals to operate without taking over the BMI270 bus. The
-wiki documents scanning and device access on both available I2C pin pairs.
+### **3.3 Processor** {.section-page}
 
-### **3.4 microSD Storage**
+RP2350A is the main controller. According to the Raspberry Pi component
+datasheet, the device provides two selectable processor architectures: dual
+Arm Cortex-M33 or dual Hazard3 RISC-V cores, with a nominal system frequency up
+to 150 MHz. Firmware selects one architecture for a given build; it does not
+execute Arm and RISC-V code simultaneously.
 
-The microSD socket is electrically connected to GPIO2–GPIO7 as `CLK`, `CMD`,
-and `DAT0`–`DAT3`, allowing the RP2350A to use the complete four-bit SDIO signal
-group. The current wiki examples use the SPI-compatible subset:
+The processor integrates 520 kB of on-chip SRAM arranged in ten banks, USB 1.1
+host/device control with an embedded PHY, ADC inputs shared with GPIO, fixed
+serial peripherals, PWM, DMA, three PIO blocks with twelve state machines, and
+one HSTX peripheral. The PULSAR design routes a selected subset of these
+functions to onboard devices and external connectors.
 
-| microSD operation | GPIO | Schematic signal |
+The on-chip SRAM is the lowest-latency working memory. It contains stacks,
+heaps, interrupt data, time-critical buffers, and code copied from flash when a
+framework requires it. DMA and multicore applications must coordinate access
+to shared buffers and peripherals.
+
+### **3.4 Memory Architecture: Flash and PSRAM** {.section-page}
+
+The W25Q128JVPIQ provides 128 Mbit (16 MiB) of external QSPI flash. It stores
+the boot image, application firmware, and any filesystem or data region defined
+by the selected board-package partition scheme. The BOOT control participates
+in the RP2350 USB boot workflow used to load recovery or update images.
+
+The APS6404L-3SQR-ZR provides 8 MiB of external PSRAM with chip select on
+GPIO0. In the Arduino workflow, the board configuration must set PSRAM CS to
+GPIO0 and select the 8 MiB capacity. Static objects can be placed in PSRAM with
+the core's `PSRAM` attribute; dynamic objects can be allocated with `pmalloc()`
+and released with `free()`.
+
+PSRAM is suited to framebuffers, file buffers, captured audio, sensor history,
+and large application structures. Interrupt flags, frequently accessed state,
+and timing-critical data should remain in internal SRAM. The application must
+check allocation results and avoid assuming that all configured PSRAM remains
+free after global/static allocations.
+
+### **3.5 HSTX Video Output** {.section-page}
+
+The HSTX peripheral serializes data at high speed and can generate the
+pseudo-differential TMDS signals used by DVI-compatible displays. The wiki and
+PCB routing define four channel pairs:
+
+| TMDS channel | Positive GPIO | Negative GPIO | Function |
+|---|---:|---:|---|
+| Clock | 14 | 15 | Pixel/link clock pair |
+| Data 0 | 18 | 19 | TMDS data channel 0 |
+| Data 1 | 16 | 17 | TMDS data channel 1 |
+| Data 2 | 12 | 13 | TMDS data channel 2 |
+
+The 22-position HSTX connector carries these signals and returns. The wiki uses
+the UDVI HSTX library with a 320 × 240 RGB565 framebuffer, drawing primitives,
+text, and partial-screen updates. This resolution is an implementation profile
+from the wiki, not a limit of the connector or RP2350A.
+
+While HSTX is enabled, GPIO12–GPIO19 are actively driven and must not be shared
+with another output or an attached circuit that drives the same nets. Display
+adapters must match the connector contact order and differential-pair routing.
+
+### **3.6 MicroSD Card Socket** {.section-page}
+
+The 47309-2651 socket is connected to a complete four-bit SDIO signal group:
+
+| Signal | GPIO | SPI-mode role in current examples |
 |---|---:|---|
-| Clock | 2 | `SDIO_CLK` |
-| Command / MOSI | 3 | `SDIO_CMD` |
-| Data / MISO | 4 | `SDIO_DAT0` |
-| Chip select in SPI mode | 7 | `SDIO_DAT3` |
+| `SDIO_CLK` | 2 | SCK |
+| `SDIO_CMD` | 3 | MOSI |
+| `SDIO_DAT0` | 4 | MISO |
+| `SDIO_DAT1` | 5 | Not used by SPI mode |
+| `SDIO_DAT2` | 6 | Not used by SPI mode |
+| `SDIO_DAT3` | 7 | Chip select |
 
-This arrangement supports filesystem operations such as card initialization,
-file creation, reading, directory listing, and sensor-data logging. GPIO5 and
-GPIO6 provide `DAT1` and `DAT2` when software uses the full four-bit SDIO bus.
+The wiki examples use the SPI-compatible subset through `SPI` and `SDFS` for
+initialization, file creation, reading, directory enumeration, and logging.
+Software with four-bit SDIO support can additionally use DAT1 and DAT2. File
+writes should be flushed and closed before power removal or card extraction.
 
-### **3.5 HSTX Video Output**
+Card capacity, speed class, and filesystem support are software-dependent. The
+wiki workflow uses FAT32 for initial validation.
 
-The RP2350A HSTX peripheral can serialize display data into four
-pseudo-differential TMDS channel pairs for DVI-compatible video. The wiki
-defines the routed pair order as follows:
+### **3.7 LED Indicators** {.section-page}
 
-| TMDS channel | Positive GPIO | Negative GPIO |
-|---|---:|---:|
-| Clock | 14 | 15 |
-| Data 0 | 18 | 19 |
-| Data 1 | 16 | 17 |
-| Data 2 | 12 | 13 |
+Three WS2812-compatible 1010 RGB LEDs form a serial chain driven by GPIO1.
+Firmware transmits one ordered color frame for all three pixels, enabling
+status colors, progress animation, and user feedback with a single GPIO.
 
-These GPIOs are available through the 22-pin HSTX connector. When video output
-is active, the eight pins are driven as a group and must be treated as reserved
-for that function. The wiki describes a 320 × 240 RGB565 framebuffer workflow,
-drawing primitives, text rendering, and partial-screen updates; PSRAM is
-available for large application buffers where supported by the display stack.
+The board also contains a user indicator on GPIO20 (`D13` / `BUILTIN1`), a
+power indicator, and a charge-status indicator. The user and RGB indicators
+are firmware-controlled. The power indicator follows its rail circuit. The
+charge indicator follows the MCP73831 status output and is not a general-purpose
+GPIO indicator.
 
-### **3.6 PDM Audio Input**
+Applications should limit RGB brightness where power consumption or thermal
+rise matters. Updating the RGB chain is independent from HSTX video output.
 
-The onboard ICS-41350 converts acoustic pressure into a one-bit PDM data
-stream. The RP2350A supplies the microphone clock on GPIO10 and receives data
-on GPIO11. A PDM-capable software peripheral decimates this stream into signed
-PCM samples that can be processed, displayed, or stored on microSD.
+### **3.8 AP2112K and MCP73831 Power Management System** {.section-page}
 
-The microphone is already connected on the PCB; no external audio wiring is
-required for onboard capture. Sample rate, buffering, filtering, and storage
-format are selected by the application software.
+U1 is an AP2112K fixed 3.3 V LDO. It converts the `VSYS` power rail into the
+3.3 V domain used by RP2350A, memories, sensors, indicators, and the QWIIC
+connector. The `3EN` control is associated with regulator enable and is pulled
+up in the available schematic.
 
-### **3.7 Visual Indicators and User Feedback**
+IC2 is an MCP73831 single-cell Li-Ion/Li-Polymer charge controller. It connects
+the USB-derived supply, charge programming network, `VBAT`, and status
+indicator. The actual charge current is set by the assembled programming path
+and must be confirmed from the manufactured board; the charger's component
+maximum is not the board's released charge current.
 
-Three cascaded WS2812-compatible RGB LEDs share a single data input on GPIO1.
-Because the LEDs are connected as a serial chain, firmware sends one ordered
-color frame to update all three devices. They can provide status, progress,
-alerts, or application-specific color feedback.
+Schottky diodes and MOSFETs implement source routing and protection around USB,
+`VIN`, `VSYS`, and battery nets. Do not assume ideal-diode behavior, seamless
+switchover, or reverse-current protection beyond what is confirmed during
+power-path validation.
 
-The board also includes a GPIO20 user indicator (`D13` / `BUILTIN1`), a power
-indicator, and a charge-status indicator. The RGB chain and user LED are
-independently controlled.
+### **3.9 Power Tree** {.section-page}
 
-### **3.8 Power Distribution and Battery Support**
+![](hardware/resources/unit_power_tree_v_1_3_0_pulsar_rp2350a.png){width=7.0in}
 
-USB VBUS, `VIN`, and the battery circuit feed the board power path. The
-AP2112K-3.3TRG1 generates the 3.3 V rail used by the RP2350A and onboard
-peripherals. The MCP73831 provides the single-cell battery-charging function,
-with the charge indicator reporting the controller status. Schottky diodes and
-MOSFETs implement the source-routing and protection paths shown in the
-schematic.
+The diagram is a functional power tree, not a replacement for the schematic.
+USB-C VBUS is the preferred first-power source. `VIN` and battery operation
+remain design-supported paths whose board-level limits, priority, and transient
+behavior will be measured on manufactured units.
 
-The hardware design is complete and awaiting fabrication. Final module-level
-input ranges, available rail current, charge configuration, and source-priority
-behavior will be confirmed on the first manufactured units.
+The 3.3 V rail supplies onboard logic and is also exposed at the edge and
+QWIIC connector. Available current for an external load equals regulator
+capability minus all board consumption and thermal derating; that value is not
+released in this preview.
 
-### **3.9 Combined System Operation**
+### **3.10 BMI270 Motion Sensor** {.section-page}
 
-The subsystems are intended to operate together: the BMI270 or PDM microphone
-can provide acquisition data, PSRAM can hold large working buffers, microSD can
-store results, the RGB LEDs can report state, and HSTX can present a graphical
-interface. The wiki's complete-application chapter combines motion sensing and
-video output and describes moving large buffers out of internal SRAM to keep
-the RP2350A responsive.
+The BMI270 combines a three-axis accelerometer and three-axis gyroscope. It is
+connected to GPIO8 (`SDA`) and GPIO9 (`SCL`) on the internal/user I2C bus. The
+wiki initializes it by scanning its supported address options and then reads
+acceleration and angular-rate samples.
 
-![](hardware/resources/unit_btm_v_1_3_0_pulsar_rp2350a.png){width=3.0in}
+Typical board applications include orientation interfaces, motion-triggered
+logging, gesture input, vibration observation, and control of HSTX graphics.
+Measurement ranges, filtering, output data rate, and interrupt behavior are
+configured through the BMI270 driver and are not fixed by the PCB.
+
+### **3.11 PDM Microphone** {.section-page}
+
+The ICS-41350 is an onboard digital MEMS microphone. RP2350A supplies its PDM
+clock on GPIO10 and receives the one-bit data stream on GPIO11. The software PDM
+stack clocks the microphone, decimates the stream, and produces PCM sample
+buffers for analysis, visualization, streaming, or storage.
+
+The acoustic port must remain unobstructed. Enclosures, adhesive, contamination,
+and board mounting can affect acoustic performance. Board-level sensitivity,
+noise, frequency response, and enclosure behavior require acoustic validation
+after fabrication.
+
+### **3.12 I2C and QWIIC Expansion** {.section-page}
+
+The board provides two distinct I2C routes. GPIO8/GPIO9 serve the onboard
+BMI270 and are also represented by `SDA`/`SCL` edge labels. GPIO24/GPIO25 feed
+the four-position QWIIC connector and HSTX connector positions.
+
+This separation lets an application keep the IMU bus independent from external
+QWIIC sensors. The wiki includes bus scanning, BMI270 access, EEPROM byte and
+block operations, hexadecimal dumps, and structured EEPROM records. External
+pull-ups, device addresses, bus capacitance, and cable length must be considered
+when attaching multiple devices.
+
+### **3.13 Combined System Operation** {.section-page}
+
+The board is designed for concurrent use of its subsystems. For example, the
+BMI270 can control an HSTX-rendered object while PSRAM holds large graphics or
+history buffers; the microphone or an I2C sensor can produce records stored on
+microSD; and RGB LEDs can show acquisition, storage, or fault state.
+
+A robust application initializes one subsystem at a time, checks every return
+value, keeps high-rate and interrupt data in internal SRAM, moves large buffers
+to PSRAM, flushes storage before shutdown, and yields enough execution time for
+USB and framework services. The repository's C++ examples implement each stage
+separately before the combined application.
