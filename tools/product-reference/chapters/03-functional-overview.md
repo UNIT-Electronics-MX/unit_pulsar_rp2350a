@@ -67,6 +67,8 @@ GPIO0 and select the 8 MiB capacity. Static objects can be placed in PSRAM with
 the core's `PSRAM` attribute; dynamic objects can be allocated with `pmalloc()`
 and released with `free()`.
 
+![External PSRAM location](hardware/resources/unit_wiki_psram_pulsar_rp2350.png){width=5.2in}
+
 PSRAM is suited to framebuffers, file buffers, captured audio, sensor history,
 and large application structures. Interrupt flags, frequently accessed state,
 and timing-critical data should remain in internal SRAM. The application must
@@ -78,6 +80,8 @@ free after global/static allocations.
 The HSTX peripheral serializes data at high speed and can generate the
 pseudo-differential TMDS signals used by DVI-compatible displays. The wiki and
 PCB routing define four channel pairs:
+
+![HSTX connector location](hardware/resources/unit_wiki_hstx_pulsar_rp2350.png){width=6.2in}
 
 | TMDS channel | Positive GPIO | Negative GPIO | Function |
 |---|---:|---:|---|
@@ -91,6 +95,8 @@ the UDVI HSTX library with a 320 × 240 RGB565 framebuffer, drawing primitives,
 text, and partial-screen updates. This resolution is an implementation profile
 from the wiki, not a limit of the connector or RP2350A.
 
+![UDVI HSTX library in Arduino Library Manager](hardware/resources/unit_wiki_udvi_library_pulsar_rp2350.png){width=2.1in}
+
 While HSTX is enabled, GPIO12–GPIO19 are actively driven and must not be shared
 with another output or an attached circuit that drives the same nets. Display
 adapters must match the connector contact order and differential-pair routing.
@@ -98,6 +104,8 @@ adapters must match the connector contact order and differential-pair routing.
 ### **3.6 MicroSD Card Socket** {.section-page}
 
 The 47309-2651 socket is connected to a complete four-bit SDIO signal group:
+
+![microSD socket location](hardware/resources/unit_wiki_microsd_pulsar_rp2350.png){width=5.2in}
 
 | Signal | GPIO | SPI-mode role in current examples |
 |---|---:|---|
@@ -122,11 +130,15 @@ Three WS2812-compatible 1010 RGB LEDs form a serial chain driven by GPIO1.
 Firmware transmits one ordered color frame for all three pixels, enabling
 status colors, progress animation, and user feedback with a single GPIO.
 
+![WS2812 RGB LED locations](hardware/resources/unit_wiki_ws2812_pulsar_rp2350.png){width=5.8in}
+
 The board also contains a user indicator on GPIO20 (`D13` / `BUILTIN1`), a
 power indicator, and a charge-status indicator. The user and RGB indicators
 are firmware-controlled. The power indicator follows its rail circuit. The
 charge indicator follows the MCP73831 status output and is not a general-purpose
 GPIO indicator.
+
+![Built-in user LED location](hardware/resources/unit_wiki_led_builtin_pulsar_rp2350.png){width=5.2in}
 
 Applications should limit RGB brightness where power consumption or thermal
 rise matters. Updating the RGB chain is independent from HSTX video output.
@@ -181,6 +193,8 @@ clock on GPIO10 and receives the one-bit data stream on GPIO11. The software PDM
 stack clocks the microphone, decimates the stream, and produces PCM sample
 buffers for analysis, visualization, streaming, or storage.
 
+![PDM microphone location](hardware/resources/unit_wiki_pdm_pulsar_rp2350.png){width=5.5in}
+
 The acoustic port must remain unobstructed. Enclosures, adhesive, contamination,
 and board mounting can affect acoustic performance. Board-level sensitivity,
 noise, frequency response, and enclosure behavior depend on the mechanical and
@@ -191,6 +205,8 @@ acoustic implementation and are not specified at module level.
 The board provides two distinct I2C routes. GPIO8/GPIO9 serve the onboard
 BMI270 and are also represented by `SDA`/`SCL` edge labels. GPIO24/GPIO25 feed
 the four-position QWIIC connector and HSTX connector positions.
+
+![I2C and QWIIC connections](hardware/resources/unit_wiki_i2c_pulsar_rp2350.png){width=6.2in}
 
 This separation lets an application keep the IMU bus independent from external
 QWIIC sensors. The wiki includes bus scanning, BMI270 access, EEPROM byte and
