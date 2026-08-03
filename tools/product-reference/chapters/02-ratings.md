@@ -7,22 +7,21 @@ complete PULSAR assembly.
 
 ### **2.1 Recommended Operating Conditions** {.section-page}
 
-The first manufactured units are required to confirm the complete table. Until
-that work is complete, use USB-C as the initial power and programming path and
-do not apply an independent battery or `VIN` source.
+Use USB-C as the documented power and programming path. Board-level limits not
+defined by the available source package are marked as not specified.
 
 | Parameter | Design-defined value | Board-level status |
 |---|---:|---|
-| Regulated logic rail | 3.3 V nominal | Defined by AP2112K-3.3; load capability pending confirmation |
+| Regulated logic rail | 3.3 V nominal | Defined by AP2112K-3.3; load capability not specified |
 | USB VBUS net | +5 V nominal | Shown by schematic net label; USB source quality is external |
 | RP2350 system clock | Up to 150 MHz | RP2350 component capability; board default depends on firmware |
 | Board reference oscillator | 12 MHz | Defined by XTAL1 and BOM |
 | Internal SRAM | 520 kB | RP2350 component resource |
 | External flash | 128 Mbit / 16 MiB | W25Q128JVPIQ fitted component |
 | External PSRAM | 8 MiB | APS6404L-3SQR-ZR fitted component |
-| `VIN` input | Pending | Must be confirmed at board level |
-| Battery input | Pending | Cell chemistry, range, polarity, and cable pending release |
-| Ambient temperature | Pending | No board-level environmental qualification supplied |
+| `VIN` input | Not specified | No board-level input range supplied |
+| Battery input | Not specified | Cell chemistry, range, and cable assembly not supplied |
+| Ambient temperature | Not specified | No board-level environmental range supplied |
 
 ### **2.2 Power-Domain Scope**
 
@@ -72,7 +71,7 @@ RP2350A input/output specifications and the power state of both devices.
 | LDO output | 3.3 V nominal | U1 component selection |
 | Oscillator frequency | 12 MHz | XTAL1 |
 
-### **2.5 Pending Board Characteristics** {.section-page}
+### **2.5 Unspecified Board Characteristics** {.section-page}
 
 - `VIN`, `VBAT`, and USB operating and absolute-maximum ranges
 - Available 3.3 V current for external loads
@@ -87,8 +86,8 @@ RP2350A input/output specifications and the power state of both devices.
 
 1. Begin first power-up from a current-limited USB source.
 2. Connect ground before external clocks, data, or analog signals.
-3. Do not connect a battery until polarity and charge configuration are
-   released for the manufactured assembly.
+3. Do not connect a battery without documented polarity, chemistry, voltage,
+   connector, and charge-current compatibility.
 4. Do not power the 3.3 V rail simultaneously from the board regulator and an
    external source unless that operating mode is explicitly approved.
 5. Do not share GPIO12–GPIO19 with other driven circuits while HSTX video is

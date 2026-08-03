@@ -1,9 +1,7 @@
 ## **5 Board Operation**
 
-The hardware design is complete and awaiting fabrication. The procedures below
-define the intended bring-up sequence and are backed by the technical wiki and
-the compilable sketches under `software/cpp_examples/`. Physical results will
-be recorded on the first manufactured units.
+The procedures below define the board workflow described by the technical wiki
+and the compilable sketches under `software/cpp_examples/`.
 
 ### **5.1 Getting Started with Arduino IDE** {.section-page}
 
@@ -11,7 +9,7 @@ be recorded on the first manufactured units.
 2. Add the UNIT package index to **Additional Boards Manager URLs**:
    `https://raw.githubusercontent.com/UNIT-Electronics/Uelectronics-RP2040-Arduino-Package/main/package_Uelectronics_rp2040_index.json`
 3. Install the UNIT Electronics RP2040/RP2350 package.
-4. Select **Generic RP2350** or the PULSAR-specific definition when released.
+4. Select **Generic RP2350** or an installed PULSAR-specific board definition.
 5. Select the RP2350A chip variant, 16 MiB flash, PSRAM CS GPIO0, and 8 MiB
    PSRAM.
 6. Connect a USB-C data cable and select the enumerated serial/boot port.
@@ -19,7 +17,8 @@ be recorded on the first manufactured units.
 
 The repository examples were compile-checked with the UNIT RP2350 core using a
 16 MiB flash and 8 MiB PSRAM configuration. Compile success confirms API and
-library compatibility, not electrical operation before fabrication.
+library compatibility; electrical operation also depends on the connected
+hardware and selected configuration.
 
 ### **5.2 First Power-up and Inspection**
 

@@ -20,14 +20,14 @@ The battery connector, microSD socket, microphone, and HSTX connector require
 bottom-side clearance. An enclosure must not obstruct the microphone acoustic
 port or prevent card and flex-cable insertion.
 
-### **6.3 Controlled Dimensions Pending** {.section-page}
+### **6.3 Mechanical Data Not Specified** {.section-page}
 
 A controlled board-outline drawing, PCB thickness, mounting-hole coordinates,
 keep-outs, connector insertion envelopes, and component height table are not
 present in the supplied package. Do not derive production dimensions from the
 rendered images.
 
-Before enclosure or carrier release, confirm:
+An enclosure or carrier design requires independently controlled values for:
 
 - overall board length, width, and thickness;
 - edge-row pitch and row spacing;

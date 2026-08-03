@@ -1,8 +1,7 @@
 ## **4 Connectors & Pinouts**
 
 Pin labels describe the V1.3 artwork. GPIO numbers identify RP2350A signals;
-framework aliases may differ until a dedicated PULSAR board definition is
-released.
+framework aliases depend on the selected board definition.
 
 ### **4.1 General Pinout** {.section-page}
 
@@ -16,7 +15,7 @@ released.
 | `D5` | GPIO14 | Digital I/O | HSTX clock pair |
 | `D6` | GPIO13 | Digital I/O | HSTX Data2 pair |
 | `D7` | GPIO12 | Digital I/O | HSTX Data2 pair |
-| `D8`, `D9` | Pending | Artwork labels present | No RP2350A connection shown in available schematic |
+| `D8`, `D9` | Not specified | Artwork labels present | No RP2350A connection shown in available schematic |
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
 | `D11` / `MOSI` | GPIO22 | Digital I/O | General-purpose |
 | `D12` / `MISO` | GPIO23 | Digital I/O | General-purpose |
@@ -60,13 +59,13 @@ J1 is a four-position, 1 mm-pitch right-angle connector carrying:
 | Signal | RP2350A connection | Function |
 |---|---:|---|
 | GND | Ground | Common return |
-| 3.3 V | Regulated rail | Peripheral supply; available current pending |
+| 3.3 V | Regulated rail | Peripheral supply; available current not specified |
 | SDA | GPIO24 | External I2C data |
 | SCL | GPIO25 | External I2C clock |
 
 The QWIIC bus is separate from the GPIO8/GPIO9 bus used by BMI270. A controlled
-contact-number and mating-cable drawing is pending, so verify the physical
-orientation before producing a harness.
+contact-number and mating-cable drawing is not included, so verify the physical
+orientation against controlled connector data when producing a harness.
 
 ### **4.4 MicroSD Connector** {.section-page}
 
@@ -91,7 +90,8 @@ JP1 is a two-position PH2.0 battery connector associated with `VBAT` and the
 battery return. Polarity markings are present on the bottom artwork. The
 MCP73831 charge controller is designed for a single-cell Li-Ion/Li-Polymer
 system, but the approved cell, connector assembly, polarity convention, charge
-current, and operating range are pending manufacturing validation and release.
+current, and operating range are not specified by the available module-level
+documentation.
 
 Do not connect a battery based solely on connector fit. Reversed polarity or an
 unsupported chemistry can damage the board or cell.
@@ -104,7 +104,7 @@ GPIO25/SCL, 3.3 V, and interleaved returns. HSTX video uses the eight
 GPIO12–GPIO19 signals as four TMDS pairs.
 
 The flex-cable contact side, complete numbered contact table, cable length, and
-display adapter are pending a controlled mechanical release. Do not infer pin
+display adapter are not specified by a controlled mechanical drawing. Do not infer pin
 1 from an unannotated photograph.
 
 ### **4.7 USB-C, BOOT, and Reset**

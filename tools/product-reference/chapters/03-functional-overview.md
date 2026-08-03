@@ -1,6 +1,6 @@
 ## **3 Functional Overview**
 
-The PULSAR RP2350A is organized around the RP2350A processor, with dedicated
+The UNIT PULSAR RP2350 is organized around the RP2350A processor, with dedicated
 external memories and fixed onboard peripherals. Firmware can use each block
 independently or combine acquisition, storage, user feedback, and video in one
 application.
@@ -140,28 +140,27 @@ up in the available schematic.
 
 IC2 is an MCP73831 single-cell Li-Ion/Li-Polymer charge controller. It connects
 the USB-derived supply, charge programming network, `VBAT`, and status
-indicator. The actual charge current is set by the assembled programming path
-and must be confirmed from the manufactured board; the charger's component
-maximum is not the board's released charge current.
+indicator. The actual charge current is set by the assembled programming path;
+the charger's component maximum is not a module-level charge-current rating.
 
 Schottky diodes and MOSFETs implement source routing and protection around USB,
 `VIN`, `VSYS`, and battery nets. Do not assume ideal-diode behavior, seamless
-switchover, or reverse-current protection beyond what is confirmed during
-power-path validation.
+switchover, or reverse-current protection beyond what is explicitly defined by
+the schematic and module specifications.
 
 ### **3.9 Power Tree** {.section-page}
 
 ![](hardware/resources/unit_power_tree_v_1_3_0_pulsar_rp2350a.png){width=7.0in}
 
 The diagram is a functional power tree, not a replacement for the schematic.
-USB-C VBUS is the preferred first-power source. `VIN` and battery operation
-remain design-supported paths whose board-level limits, priority, and transient
-behavior will be measured on manufactured units.
+USB-C VBUS, `VIN`, and battery are represented in the power-path design.
+Board-level limits, source priority, and transient behavior are not specified
+by the available documentation.
 
 The 3.3 V rail supplies onboard logic and is also exposed at the edge and
 QWIIC connector. Available current for an external load equals regulator
 capability minus all board consumption and thermal derating; that value is not
-released in this preview.
+specified at module level.
 
 ### **3.10 BMI270 Motion Sensor** {.section-page}
 
@@ -184,8 +183,8 @@ buffers for analysis, visualization, streaming, or storage.
 
 The acoustic port must remain unobstructed. Enclosures, adhesive, contamination,
 and board mounting can affect acoustic performance. Board-level sensitivity,
-noise, frequency response, and enclosure behavior require acoustic validation
-after fabrication.
+noise, frequency response, and enclosure behavior depend on the mechanical and
+acoustic implementation and are not specified at module level.
 
 ### **3.12 I2C and QWIIC Expansion** {.section-page}
 

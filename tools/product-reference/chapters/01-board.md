@@ -1,6 +1,6 @@
 ## **1 The Board**
 
-The PULSAR RP2350A is a pre-production development board for evaluating the
+The UNIT PULSAR RP2350 is a development board for evaluating the
 Raspberry Pi RP2350A and building applications that combine high-speed digital
 output, removable storage, motion sensing, digital audio, external memory, and
 general-purpose I/O. The V1.3.0 artwork places the controller, QSPI flash,
@@ -10,34 +10,34 @@ connector are accessible from the bottom side.
 
 ### **1.1 Accessories** {.section-page}
 
-No accessory bundle has been formally released. The following items are useful
-for bringing up the board, but are not claimed as package contents:
+The source package does not define an accessory bundle. The following items
+support board operation but are not claimed as package contents:
 
 | Accessory | Purpose | Selection notes |
 |---|---|---|
 | USB-C data cable | Power, programming, and USB serial | Must support data; a charge-only cable cannot upload firmware |
 | SWD probe | Low-level programming and debug | Use 3.3 V-compatible SWDIO, SWCLK, GND, and target reference |
 | microSD card | Filesystem and data-logging examples | Wiki examples expect a FAT32-formatted card |
-| QWIIC cable and sensor | External I2C expansion | Cable orientation and released compatible assemblies remain to be confirmed |
+| QWIIC cable and sensor | External I2C expansion | Match the connector pitch, contact order, orientation, and 3.3 V domain |
 | HSTX display adapter/cable | DVI-compatible video experiments | Must match the 22-position, 0.5 mm connector and routed TMDS pairs |
-| Single-cell battery | Battery-powered operation | Do not connect until chemistry, polarity, connector fit, and charge configuration are confirmed |
+| Single-cell battery | Battery-powered operation | Requires documented chemistry, polarity, connector fit, voltage, and charge-current compatibility |
 | Logic analyzer or oscilloscope | Interface bring-up | Useful for I2C, SPI/SDIO, PDM, and clock verification |
 
 Accessories must not be selected only from a connector's mechanical
 appearance. Verify pitch, contact orientation, polarity, voltage domain, and
-pin order against the released assembly information.
+pin order against the controlled assembly information.
 
 ### **1.2 Board Identification**
 
 | Item | Value |
 |---|---|
-| Product | UNIT DevLab PULSAR RP2350A |
+| Product | UNIT PULSAR RP2350 |
+| Product family | UNIT DevLab ecosystem |
 | Product type | Multi-interface RP2350A development board |
 | Manufacturer Part Number | UE0103 |
 | Main component | Raspberry Pi RP2350A, QFN-60 |
 | Hardware artwork | V1.3.0 |
-| Product Reference | 0.1.0, preview documentation |
-| Hardware status | Design complete; awaiting fabrication |
+| Product Reference | Version 0.1.0 |
 | Primary programming interface | USB-C / RP2350 USB boot workflow |
 | Debug interface | SWD pads on bottom side |
 
@@ -77,8 +77,8 @@ microphone, SWD pads, HSTX connector, and V1.3.0 artwork marking.
 
 ### **1.5 Package Contents and Handling** {.section-page}
 
-Package contents are pending commercial release. Until a released package list
-exists, assume only the assembled board is supplied.
+The available documentation defines the assembled board but does not specify
+an accessory bundle or package-contents list.
 
 Handle the board using normal ESD precautions. Avoid touching the microphone
 port, connector contacts, or exposed test pads. Remove power before inserting

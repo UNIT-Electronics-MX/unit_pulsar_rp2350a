@@ -6,6 +6,5 @@
 | Website | [UNIT Electronics](https://uelectronics.com/) |
 | Address | Salvador 19, Cuauhtémoc, 06000 Mexico City, CDMX, Mexico |
 
-Product specifications and documentation may change during preview. Consult
-the repository and Product Wiki in the next chapter for current released
-sources.
+The repository and Product Wiki in the next chapter provide the product's
+hardware, software, and reference documentation.

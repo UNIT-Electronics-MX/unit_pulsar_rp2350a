@@ -44,36 +44,36 @@ artwork.
 4. The compile-checked C++ example collection reconciles wiki code with the
    installed UNIT RP2350 core APIs.
 
-### **9.3 Items Pending Confirmation** {.section-page}
+### **9.3 Values Not Specified by the Source Package** {.section-page}
 
-- Correction of the schematic title block to PULSAR RP2350A V1.3.0
+- A schematic title block matching UNIT PULSAR RP2350 V1.3.0
 - Module `VIN`, `VBAT`, USB, and 3.3 V rail electrical limits
 - Power-source priority, charge current, and approved battery assembly
 - Complete numbered HSTX and QWIIC connector drawings
 - `D8` and `D9` edge-pad disposition
 - Board dimensions, mounting coordinates, and mechanical keep-outs
 - Current consumption, thermal behavior, and validated interface rates
-- Runtime results for the wiki and C++ examples on manufactured units
+- Module-level runtime performance for the wiki and C++ examples
 - Final controlled pinout, topology, and dimensions artwork
 
 ### **9.4 Document Control** {.section-page}
 
 | Field | Value |
 |---|---|
-| Product | UNIT DevLab PULSAR RP2350A |
+| Product | UNIT PULSAR RP2350 |
+| Product family | UNIT DevLab ecosystem |
 | Manufacturer Part Number | UE0103 |
 | Hardware artwork | V1.3.0 |
-| Hardware status | Design complete; awaiting fabrication |
-| Product Reference | 0.1.0, preview documentation |
+| Product Reference | Version 0.1.0 |
 | Publication date | 2026-08-03 |
-| Firmware status | 28 examples compile; runtime confirmation follows fabrication |
+| Firmware | 28 compile-checked examples |
 
 ### **9.5 Source Inconsistencies** {.section-page}
 
 - The V1.3 schematic filename, artwork, and BOM identify RP2350A, but the
   schematic title block says `PULSAR RP230A` and revision `1.0.0`.
 - The supplied legacy Product Reference DOCX describes an ESP32-H2 board and is
-  not applicable to PULSAR RP2350A.
+  not applicable to UNIT PULSAR RP2350.
 - Wiki microSD examples use SPI mode, while the V1.3 schematic exposes a full
   four-bit SDIO group. Both are represented correctly: SPI uses the compatible
   CLK/CMD/DAT0/DAT3 subset.
