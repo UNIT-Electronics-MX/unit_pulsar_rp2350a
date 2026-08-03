@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="$lang$">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Pandoc">
+  <title>$title$ — $subtitle$</title>
+  $for(css)$
+  <link rel="stylesheet" href="$css$">
+  $endfor$
+</head>
+<body>
+  <section class="cover">
+    <div class="cover__brand">
+      <img src="tools/product-reference/assets/unit-logo.png" alt="UNIT Electronics">
+      <span>PRODUCT REFERENCE MANUAL</span>
+    </div>
+
+    <div class="cover__identity">
+      <p class="cover__eyebrow">DEVLAB MULTI-INTERFACE DEVELOPMENT BOARD</p>
+      <h1>$title$</h1>
+      <p class="cover__part">Mfr. Part #: $part-number$</p>
+      <p class="cover__version">Version $version$</p>
+    </div>
+
+    <div class="cover__visual">
+      <div class="cover__halo"></div>
+      <img
+        src="hardware/resources/unit_top_v_1_3_0_pulsar_rp2350a.png"
+        alt="PULSAR RP2350A development board top view">
+    </div>
+
+    <div class="cover__summary">
+      <p>
+        Preview RP2350A development board with external flash and PSRAM,
+        motion sensing, PDM audio, microSD, QWIIC, USB-C, and HSTX expansion.
+      </p>
+      <div class="cover__tags">
+        <span>RP2350A</span>
+        <span>16 MiB FLASH</span>
+        <span>8 MiB PSRAM</span>
+        <span>SDIO · PDM · I2C · HSTX</span>
+      </div>
+    </div>
+
+    <div class="cover__footer">
+      <span>UNIT Electronics® DevLab Module</span>
+      <span>Released $date$</span>
+    </div>
+  </section>
+
+  $if(toc)$
+  <section class="contents-page">
+    <p class="section-kicker">DOCUMENT MAP</p>
+    <h1>Contents</h1>
+    <div class="contents-page__rule"></div>
+    $toc$
+  </section>
+  $endif$
+
+  <article class="product-reference-content">
+    $body$
+  </article>
+</body>
+</html>
