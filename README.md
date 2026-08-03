@@ -38,8 +38,7 @@ HSTX expansion connector.
 | Storage | 47309-2651 microSD holder on a four-bit SDIO connection |
 | Indicators | Three WS2812-compatible RGB LEDs, user LED, power LED, and charge LED |
 | Connections | USB-C, QWIIC I²C, battery, SWD, edge pads, and 22-pin HSTX connector |
-| Hardware Revision | V1.3.0 artwork |
-| Manufacturer Part Number | UE0103 |
+| Hardware Revision | V1.3.0 |
 
 </div>
 
@@ -70,7 +69,6 @@ for details. Third-party reference files may have separate terms.
 
 > **Documentation Note:**
 > Electrical limits, mechanical dimensions, and connector orientation not
-> defined by the V1.3 source package are identified as unspecified. The source
-> package identifies the RP2350A, while the schematic title block says
-> `PULSAR RP230A` and revision `1.0.0`; the BOM and artwork identify the fitted
-> controller and hardware revision used by this documentation.
+> defined by the V1.3 technical documentation are identified as unspecified.
+> The board uses the RP2350A, while the schematic title block says
+> `PULSAR RP230A` and revision `1.0.0`.
