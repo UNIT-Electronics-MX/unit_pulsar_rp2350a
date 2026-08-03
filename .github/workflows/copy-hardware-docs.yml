@@ -18,7 +18,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
 
 concurrency:
   group: github-pages
@@ -29,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
+      pages: read
 
     steps:
     - name: Checkout repository
@@ -64,8 +63,19 @@ jobs:
         chmod +x .github/scripts/build_docs.sh
         .github/scripts/build_docs.sh
 
-    - name: Commit and push changes
+    - name: Configure GitHub Pages
       if: github.event_name != 'pull_request'
+      uses: actions/configure-pages@v5
+
+    - name: Upload GitHub Pages artifact
+      if: github.event_name != 'pull_request'
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: docs
+
+    - name: Commit and push changes
+      if: github.event_name != 'pull_request' && github.run_attempt == 1
+      continue-on-error: true
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -77,12 +87,19 @@ jobs:
           echo "No changes to commit"
         fi
 
-    - name: Trigger GitHub Pages publication
+  deploy-pages:
       if: github.event_name != 'pull_request'
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        gh api \
-          --method POST \
-          --header "X-GitHub-Api-Version: 2026-03-10" \
-          "repos/${{ github.repository }}/pages/builds"
+      needs: build-and-publish-docs
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        pages: write
+        id-token: write
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+
+      steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
