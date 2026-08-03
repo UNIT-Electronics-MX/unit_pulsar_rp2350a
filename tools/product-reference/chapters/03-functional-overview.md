@@ -140,7 +140,7 @@ up in the available schematic.
 
 IC2 is an MCP73831 single-cell Li-Ion/Li-Polymer charge controller. It connects
 the USB-derived supply, charge programming network, `VBAT`, and status
-indicator. The actual charge current is set by the assembled programming path;
+indicator. The actual charge current is set by the charge-configuration network;
 the charger's component maximum is not a module-level charge-current rating.
 
 Schottky diodes and MOSFETs implement source routing and protection around USB,

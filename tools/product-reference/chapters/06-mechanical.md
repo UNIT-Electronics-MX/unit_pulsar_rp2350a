@@ -1,6 +1,6 @@
 ## **6 Mechanical Information**
 
-The V1.3.0 artwork shows a narrow development-board layout with two parallel
+Hardware revision V1.3.0 uses a narrow development-board layout with two parallel
 edge-pad rows, four corner mounting holes, USB-C at one end, and the 22-pin HSTX
 connector at the opposite end.
 

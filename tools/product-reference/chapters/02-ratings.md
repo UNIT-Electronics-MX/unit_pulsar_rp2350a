@@ -3,24 +3,24 @@
 This chapter separates values established by the design files from limits that
 require measurement or a released board-level specification. A component's
 absolute maximum or operating range is not automatically the rating of the
-complete PULSAR assembly.
+complete PULSAR board.
 
 ### **2.1 Recommended Operating Conditions** {.section-page}
 
 Use USB-C as the documented power and programming path. Board-level limits not
-defined by the available source package are marked as not specified.
+defined by the available technical documentation are marked as not specified.
 
 | Parameter | Design-defined value | Board-level status |
 |---|---:|---|
 | Regulated logic rail | 3.3 V nominal | Defined by AP2112K-3.3; load capability not specified |
 | USB VBUS net | +5 V nominal | Shown by schematic net label; USB source quality is external |
 | RP2350 system clock | Up to 150 MHz | RP2350 component capability; board default depends on firmware |
-| Board reference oscillator | 12 MHz | Defined by XTAL1 and BOM |
+| Board reference oscillator | 12 MHz | XTAL1 oscillator frequency |
 | Internal SRAM | 520 kB | RP2350 component resource |
-| External flash | 128 Mbit / 16 MiB | W25Q128JVPIQ fitted component |
-| External PSRAM | 8 MiB | APS6404L-3SQR-ZR fitted component |
+| External flash | 128 Mbit / 16 MiB | W25Q128JVPIQ onboard memory |
+| External PSRAM | 8 MiB | APS6404L-3SQR-ZR onboard memory |
 | `VIN` input | Not specified | No board-level input range supplied |
-| Battery input | Not specified | Cell chemistry, range, and cable assembly not supplied |
+| Battery input | Not specified | Cell chemistry, range, and cable compatibility not specified |
 | Ambient temperature | Not specified | No board-level environmental range supplied |
 
 ### **2.2 Power-Domain Scope**
@@ -40,8 +40,8 @@ The following values must remain separate:
   programming network.
 - **Connector ratings:** describe the connector hardware, not the permitted
   board supply voltage.
-- **Board ratings:** require the complete schematic, layout, assembly, and
-  validation results.
+- **Board ratings:** apply to the complete board rather than an individual
+  component.
 
 ### **2.3 Digital Interfaces**
 
@@ -51,7 +51,7 @@ RP2350A input/output specifications and the power state of both devices.
 
 | Interface | Board connection | Electrical note |
 |---|---|---|
-| Internal I2C | GPIO8 / GPIO9 | BMI270 bus; pull-ups shown in the assembly |
+| Internal I2C | GPIO8 / GPIO9 | BMI270 bus with onboard pull-ups |
 | QWIIC I2C | GPIO24 / GPIO25 | Connector also supplies 3.3 V and GND |
 | microSD | GPIO2–GPIO7 | Full SDIO group; wiki uses SPI-compatible subset |
 | PDM | GPIO10 / GPIO11 | Clock output and microphone data input |
@@ -75,7 +75,7 @@ RP2350A input/output specifications and the power state of both devices.
 
 - `VIN`, `VBAT`, and USB operating and absolute-maximum ranges
 - Available 3.3 V current for external loads
-- Battery charge current and supported cell/cable assembly
+- Battery charge current and supported cell/cable compatibility
 - Source priority and reverse-current behavior among USB, `VIN`, and battery
 - Total current consumption in boot, idle, storage, video, and audio modes
 - GPIO drive and input thresholds as exposed by each connector

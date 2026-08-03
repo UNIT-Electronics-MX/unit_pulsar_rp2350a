@@ -2,8 +2,8 @@
 
 The UNIT PULSAR RP2350 Product Reference source is maintained in Markdown under
 `chapters/`. Document metadata and chapter order are defined in `book.yml`.
-Version 0.1.0 is based on the V1.3 schematic, BOM, board artwork, official
-RP2350 component datasheet, and technical wiki.
+Version 0.1.0 is based on the V1.3 schematic, official RP2350 component
+datasheet, and technical wiki.
 
 ## Local validation build
 
@@ -32,7 +32,7 @@ GitHub Actions publishes the PDF and DOCX under `docs/hardware/`. Do not edit
 generated documents or `docs/` manually.
 
 The Markdown chapters are the source of truth. Board values and mappings must
-come from controlled source files. Do not infer complete board limits from an
+come from technical references. Do not infer complete board limits from an
 individual component rating. The technical wiki documents intended subsystem
 operation and firmware workflows. Values absent from these sources are stated
 as unspecified rather than inferred from individual component ratings.

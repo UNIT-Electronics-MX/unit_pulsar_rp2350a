@@ -3,15 +3,15 @@
 The UNIT PULSAR RP2350 is a development board for evaluating the
 Raspberry Pi RP2350A and building applications that combine high-speed digital
 output, removable storage, motion sensing, digital audio, external memory, and
-general-purpose I/O. The V1.3.0 artwork places the controller, QSPI flash,
+general-purpose I/O. Hardware revision V1.3.0 places the controller, QSPI flash,
 PSRAM, power components, indicators, and user controls on the top side. The
 microSD socket, battery connection, onboard microphone, debug pads, and HSTX
 connector are accessible from the bottom side.
 
 ### **1.1 Accessories** {.section-page}
 
-The source package does not define an accessory bundle. The following items
-support board operation but are not claimed as package contents:
+No accessory bundle is specified. The following optional items support board
+operation:
 
 | Accessory | Purpose | Selection notes |
 |---|---|---|
@@ -25,7 +25,7 @@ support board operation but are not claimed as package contents:
 
 Accessories must not be selected only from a connector's mechanical
 appearance. Verify pitch, contact orientation, polarity, voltage domain, and
-pin order against the controlled assembly information.
+pin order against the connector documentation.
 
 ### **1.2 Board Identification**
 
@@ -34,20 +34,17 @@ pin order against the controlled assembly information.
 | Product | UNIT PULSAR RP2350 |
 | Product family | UNIT DevLab ecosystem |
 | Product type | Multi-interface RP2350A development board |
-| Manufacturer Part Number | UE0103 |
 | Main component | Raspberry Pi RP2350A, QFN-60 |
-| Hardware artwork | V1.3.0 |
+| Hardware revision | V1.3.0 |
 | Product Reference | Version 0.1.0 |
 | Primary programming interface | USB-C / RP2350 USB boot workflow |
 | Debug interface | SWD pads on bottom side |
 
-The Manufacturer Part Number identifies the manufacturing assembly; it is not
-the commercial product name. Hardware revision and documentation revision are
-controlled independently.
+Hardware revision and documentation revision are identified independently.
 
 ### **1.3 Main Assemblies**
 
-| RefDes | Fitted component | Function |
+| RefDes | Component | Function |
 |---|---|---|
 | IC3 | RP2350A | Main processor and peripheral controller |
 | IC1 | W25Q128JVPIQ | 128 Mbit (16 MiB) external QSPI flash |
@@ -73,12 +70,9 @@ labels, RP2350A, flash, PSRAM, QWIIC connector, oscillator, and three RGB LEDs.
 ![](hardware/resources/unit_btm_v_1_3_0_pulsar_rp2350a.png){width=3.2in}
 
 The bottom view identifies the battery polarity marks, microSD socket, onboard
-microphone, SWD pads, HSTX connector, and V1.3.0 artwork marking.
+microphone, SWD pads, HSTX connector, and V1.3.0 revision marking.
 
-### **1.5 Package Contents and Handling** {.section-page}
-
-The available documentation defines the assembled board but does not specify
-an accessory bundle or package-contents list.
+### **1.5 Handling** {.section-page}
 
 Handle the board using normal ESD precautions. Avoid touching the microphone
 port, connector contacts, or exposed test pads. Remove power before inserting

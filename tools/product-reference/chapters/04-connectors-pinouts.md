@@ -1,6 +1,6 @@
 ## **4 Connectors & Pinouts**
 
-Pin labels describe the V1.3 artwork. GPIO numbers identify RP2350A signals;
+Pin labels describe hardware revision V1.3. GPIO numbers identify RP2350A signals;
 framework aliases depend on the selected board definition.
 
 ### **4.1 General Pinout** {.section-page}
@@ -15,7 +15,7 @@ framework aliases depend on the selected board definition.
 | `D5` | GPIO14 | Digital I/O | HSTX clock pair |
 | `D6` | GPIO13 | Digital I/O | HSTX Data2 pair |
 | `D7` | GPIO12 | Digital I/O | HSTX Data2 pair |
-| `D8`, `D9` | Not specified | Artwork labels present | No RP2350A connection shown in available schematic |
+| `D8`, `D9` | Not specified | Board labels present | No RP2350A connection shown in available schematic |
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
 | `D11` / `MOSI` | GPIO22 | Digital I/O | General-purpose |
 | `D12` / `MISO` | GPIO23 | Digital I/O | General-purpose |
@@ -87,9 +87,9 @@ must flush and close files before power removal.
 ### **4.5 Battery Connections**
 
 JP1 is a two-position PH2.0 battery connector associated with `VBAT` and the
-battery return. Polarity markings are present on the bottom artwork. The
+battery return. Polarity markings are present on the bottom side. The
 MCP73831 charge controller is designed for a single-cell Li-Ion/Li-Polymer
-system, but the approved cell, connector assembly, polarity convention, charge
+system, but the compatible cell, connector, polarity convention, charge
 current, and operating range are not specified by the available module-level
 documentation.
 
