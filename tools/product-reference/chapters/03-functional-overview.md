@@ -43,6 +43,8 @@ Arm Cortex-M33 or dual Hazard3 RISC-V cores, with a nominal system frequency up
 to 150 MHz. Firmware selects one architecture for a given build; it does not
 execute Arm and RISC-V code simultaneously.
 
+![Raspberry Pi RP2350A QFN-60 microcontroller](hardware/resources/unit_rp2350a_qfn60_package_pulsar_rp2350.jpg){width=3.5in}
+
 The processor integrates 520 kB of on-chip SRAM arranged in ten banks, USB 1.1
 host/device control with an embedded PHY, ADC inputs shared with GPIO, fixed
 serial peripherals, PWM, DMA, three PIO blocks with twelve state machines, and
