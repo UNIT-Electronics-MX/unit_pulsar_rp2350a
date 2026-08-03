@@ -11,12 +11,12 @@
     </style>
   </defs>
   <rect width="1400" height="820" fill="white"/>
-  <text x="700" y="55" class="title">PULSAR RP2350A — Power Tree</text>
+  <text x="700" y="55" class="title">UNIT PULSAR RP2350 — Power Tree</text>
 
   <rect x="55" y="120" width="280" height="110" class="box"/>
   <text x="195" y="165" class="label">USB-C VBUS</text><text x="195" y="200" class="small">+5 V schematic net</text>
   <rect x="55" y="355" width="280" height="110" class="box"/>
-  <text x="195" y="400" class="label">VIN</text><text x="195" y="435" class="small">range pending confirmation</text>
+  <text x="195" y="400" class="label">VIN</text><text x="195" y="435" class="small">range not specified</text>
   <rect x="55" y="590" width="280" height="110" class="box"/>
   <text x="195" y="635" class="label">Single-cell Battery</text><text x="195" y="670" class="small">JP1 / VBAT</text>
 
@@ -41,5 +41,5 @@
   <path d="M335 645H445" class="line"/><path d="M595 590V245" class="line"/>
   <path d="M745 175H790V325H850" class="line"/><path d="M1110 325H1180" class="line"/>
   <path d="M980 380V470" class="line"/><path d="M1110 525H1180" class="line"/><path d="M1270 580V650" class="line"/>
-  <text x="700" y="780" class="small">Module limits and source-priority behavior will be confirmed on manufactured units.</text>
+  <text x="700" y="780" class="small">Module limits and source-priority behavior are not specified by the source package.</text>
 </svg>
