@@ -1,21 +1,21 @@
-# PULSAR RP2350A Hardware
+# UNIT PULSAR RP2350 Hardware
 
-## Note of Development
+## Hardware Scope
 
-This hardware reference covers the pre-production V1.3.0 board artwork and the
-available V1.3 schematic/BOM package. The hardware design is complete and
-awaiting fabrication. This document separates design-defined connections from
-items that require schematic correction or confirmation on the first
-manufactured units. The schematic title block currently says `PULSAR RP230A` and
+This hardware reference covers the V1.3.0 board artwork and the V1.3
+schematic/BOM package. It separates design-defined connections from values not
+specified by the available board-level documentation. The schematic title block says `PULSAR RP230A` and
 `REV: 1.0.0`, although the filename, board artwork, BOM, and fitted controller
-identify the product as PULSAR RP2350A V1.3.0.
+identify the product as UNIT PULSAR RP2350 V1.3.0 with an RP2350A controller.
 
 ## Naming Rules
 
-- Product name: **PULSAR RP2350A Multi-Interface Development Board**.
+- Product name: **UNIT PULSAR RP2350 Multi-Interface Development Board**.
+- Product family: **UNIT DevLab ecosystem**; `DevLab` is not part of the
+  product name.
 - Manufacturer Part Number: **UE0103**; use it only in manufacturing and
   document-control fields.
-- Released source assets use lowercase, descriptive names and explicit
+- Source assets use lowercase, descriptive names and explicit
   revisions, for example `unit_top_v_1_3_0_pulsar_rp2350a.png`.
 - Generated Product Reference files use
   `unit_product_reference_v_0_1_0_pulsar_rp2350a.*`.
@@ -38,17 +38,17 @@ identify the product as PULSAR RP2350A V1.3.0.
 | JP1 | PH2.0 2P | Two-position battery connection |
 
 The BOM component ratings are not module ratings. In particular, the allowed
-`VIN`, `VBAT`, and 3.3 V rail loads remain pending validation.
+`VIN`, `VBAT`, and 3.3 V rail loads are not specified at module level.
 
-![PULSAR RP2350A top view](resources/unit_top_v_1_3_0_pulsar_rp2350a.png)
+![UNIT PULSAR RP2350 top view](resources/unit_top_v_1_3_0_pulsar_rp2350a.png)
 
-![PULSAR RP2350A bottom view](resources/unit_btm_v_1_3_0_pulsar_rp2350a.png)
+![UNIT PULSAR RP2350 bottom view](resources/unit_btm_v_1_3_0_pulsar_rp2350a.png)
 
 ## Pinout
 
 The following mapping is transcribed from the V1.3 schematic and visible board
 labels. `D8` and `D9` appear on the artwork but are not traced to RP2350A GPIOs
-in the available schematic; treat them as unassigned pending validation.
+in the available schematic; treat them as unassigned.
 
 | Board label | RP2350A connection | Function / status |
 |---|---|---|
@@ -60,7 +60,7 @@ in the available schematic; treat them as unassigned pending validation.
 | `D5` | GPIO14 | Digital I/O; HSTX connector signal |
 | `D6` | GPIO13 | Digital I/O; HSTX connector signal |
 | `D7` | GPIO12 | Digital I/O; HSTX connector signal |
-| `D8`, `D9` | Pending | No RP2350A connection shown in the V1.3 schematic |
+| `D8`, `D9` | Not specified | No RP2350A connection shown in the V1.3 schematic |
 | `D10` / `SS` | GPIO21 | Digital I/O |
 | `D11` / `MOSI` | GPIO22 | Digital I/O |
 | `D12` / `MISO` | GPIO23 | Digital I/O |
@@ -72,11 +72,11 @@ in the available schematic; treat them as unassigned pending validation.
 | `SCL` / `D19` | GPIO9 | Internal/user I2C clock; BMI270 bus |
 | `D21` | GPIO10 | PDM microphone clock net (`CLK_MIC`) |
 | `RGB` | GPIO1 | WS2812 chain data (`NEOP_DO`) |
-| `3V3` | 3.3 V rail | Regulated rail; available current pending validation |
+| `3V3` | 3.3 V rail | Regulated rail; available current not specified |
 | `3EN` | LDO enable | Pulled up in the schematic |
-| `VBAT` | Battery rail | Operating limits pending validation |
+| `VBAT` | Battery rail | Operating limits not specified |
 | `VUSB` | USB VBUS | USB-C supply rail |
-| `VIN` | System supply input | Allowed input range pending validation |
+| `VIN` | System supply input | Allowed input range not specified |
 | `RST` | Reset | RP2350A reset control |
 | `GND` | Ground | Common return |
 
@@ -94,8 +94,8 @@ in the available schematic; treat them as unassigned pending validation.
 ## Dimensions
 
 A controlled dimension drawing and mounting-hole coordinates are not present
-in the supplied V1.3 package. Dimensions are pending validation; do not scale
-them from the rendered board images.
+in the supplied V1.3 package. Do not derive dimensions from the rendered board
+images.
 
 ## Topology
 
@@ -121,13 +121,13 @@ power-path specification.
 
 - **USB-C:** USB data and nominal USB VBUS entry.
 - **J1 QWIIC:** four positions carrying GND, 3.3 V, GPIO24/SDA, and
-  GPIO25/SCL. Cable orientation is pending physical validation.
+  GPIO25/SCL. Cable orientation is not specified by a controlled drawing.
 - **J5 HSTX:** 22-position FFC/FPC connector exposing D0–D7, A0, A1,
   GPIO24/SDA, GPIO25/SCL, 3.3 V, and return pins according to the schematic.
-  The complete controlled pin-number table is pending validation.
+  A controlled pin-number table is not included in the source package.
 - **microSD:** four-bit SDIO connection (CLK, CMD, DAT0–DAT3).
 - **JP1 battery:** two-position battery connector; polarity is shown on the
-  bottom artwork, but compatible battery/cable assemblies are not yet released.
+  bottom artwork. Compatible battery and cable assemblies are not specified.
 - **SWD pads:** `SWDIO`, `SWCLK`, 3.3 V, and GND test/programming pads are
   visible on the bottom artwork.
 
@@ -143,8 +143,7 @@ a chain driven from GPIO1.
 USB VBUS and `VIN` feed the documented power-path components, while an
 MCP73831 charge controller and external battery connection support a
 single-cell battery design. Module-level input ranges, charge current, rail
-current, and source-selection behavior remain pending confirmation on the first
-manufactured units.
+current, and source-selection behavior are not specified at module level.
 
 ## Applications
 
@@ -157,9 +156,9 @@ manufactured units.
 
 ## References
 
-- [PULSAR RP2350A repository](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a)
+- [UNIT PULSAR RP2350 repository](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a)
 - [Technical wiki](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/wiki)
 - [C++ examples](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/tree/main/software/cpp_examples)
 - [Official RP2350 datasheet](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf)
-- [Preview Product Reference](https://unit-electronics-mx.github.io/unit_pulsar_rp2350a/hardware/unit_product_reference_v_0_1_0_pulsar_rp2350a.pdf)
+- [Product Reference](https://unit-electronics-mx.github.io/unit_pulsar_rp2350a/hardware/unit_product_reference_v_0_1_0_pulsar_rp2350a.pdf)
 - [V1.3 schematic](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/blob/main/hardware/unit_sch_v_1_3_0_pulsar_rp2350a.pdf)

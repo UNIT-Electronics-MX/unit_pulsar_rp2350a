@@ -15,7 +15,7 @@
     </style>
   </defs>
   <rect width="1400" height="900" fill="white"/>
-  <text x="700" y="55" class="title" text-anchor="middle">PULSAR RP2350A — Functional Block Diagram</text>
+  <text x="700" y="55" class="title" text-anchor="middle">UNIT PULSAR RP2350 — Functional Block Diagram</text>
 
   <rect x="510" y="305" width="380" height="235" class="main"/>
   <text x="700" y="375" class="label white">RP2350A</text>
