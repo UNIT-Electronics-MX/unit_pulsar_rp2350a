@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 3-WS2812B-Implementation.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 #include <Adafruit_NeoPixel.h>
 

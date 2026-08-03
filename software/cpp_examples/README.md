@@ -1,9 +1,8 @@
-# PULSAR RP2350A C++ Examples
+# UNIT PULSAR RP2350 C++ Examples
 
 This directory contains the complete Arduino C++ sketches described by the
-PULSAR RP2350 technical wiki. The hardware design is complete and awaiting
-fabrication. The examples implement the design-defined pin mapping; their
-runtime results will be confirmed on the first manufactured units.
+PULSAR RP2350 technical wiki. The examples implement the design-defined pin
+mapping and document the required framework and library interfaces.
 
 Each sketch is stored in a directory with the same name as its `.ino` file so
 it can be opened directly with Arduino IDE or compiled with Arduino CLI.
@@ -58,7 +57,7 @@ the selected board core.
 | External PSRAM | CS=GPIO0 |
 | User LED | GPIO20 (`D13` / `BUILTIN1` in the V1.3 schematic) |
 
-The microSD hardware includes the full `DAT0`–`DAT3` SDIO group. The current
+The microSD hardware includes the full `DAT0`–`DAT3` SDIO group. The repository
 wiki sketches operate the socket in SPI mode using the compatible subset shown
 above.
 
@@ -72,9 +71,9 @@ duplicated as independent `.ino` files because they would not compile alone.
 They remain available in the corresponding chapters of the
 [PULSAR RP2350 technical wiki](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/wiki).
 
-## Source Status
+## Source Notes
 
 The files preserve the complete code blocks from the wiki, add a source header,
 and reconcile the user LED with the V1.3 schematic (`GPIO20`). Compile
-validation checks syntax and library compatibility; it does not replace
-runtime confirmation on manufactured hardware.
+validation checks syntax and library compatibility. Runtime behavior depends
+on the selected core, libraries, peripherals, and application configuration.

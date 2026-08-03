@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 2-ADC-Basics.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 const int adcPin = 26;
 const int ledPin = 20;  // D13/BUILTIN1 in the V1.3 schematic

@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 5-SPI-MicroSD.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 #include <SPI.h>
 #include <SDFS.h>

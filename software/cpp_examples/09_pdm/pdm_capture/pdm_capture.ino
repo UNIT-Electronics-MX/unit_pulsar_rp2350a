@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 9-PDM-Microphone.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 #include <Arduino.h>
 #include <PDM.h>

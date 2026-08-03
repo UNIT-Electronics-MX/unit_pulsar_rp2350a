@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 7-Complete-Application.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 // Demo de cubo 3D controlado por IMU (BMI270)
 // Arduino Nano RP2350 + DVI + BMI270

@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 4-I2C-Communication.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 #include <Wire.h>
 #include "SparkFun_BMI270_Arduino_Library.h"

@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 6-HDMI-Video.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 #include <udvi_hstx.h>
 

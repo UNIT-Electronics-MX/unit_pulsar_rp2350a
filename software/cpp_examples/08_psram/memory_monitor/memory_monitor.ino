@@ -1,6 +1,4 @@
 // Source: PULSAR RP2350 technical wiki, 8-PSRAM-Memory.md
-// Hardware design status: complete, awaiting fabrication.
-// Confirm runtime results on the first manufactured units.
 
 void printMemoryStatus() {
   Serial.println("\n========== Memory Status ==========");
