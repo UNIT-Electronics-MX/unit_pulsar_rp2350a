@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e66a25"/></marker>
+    <style>
+      .box{fill:#f4f6f8;stroke:#172536;stroke-width:3;rx:15}
+      .orange{fill:#fff1e8;stroke:#e66a25;stroke-width:4;rx:15}
+      .title{font:700 28px sans-serif;fill:#172536;text-anchor:middle}
+      .label{font:600 21px sans-serif;fill:#172536;text-anchor:middle}
+      .small{font:400 17px sans-serif;fill:#596573;text-anchor:middle}
+      .line{stroke:#e66a25;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1400" height="820" fill="white"/>
+  <text x="700" y="55" class="title">PULSAR RP2350A — Power Tree</text>
+
+  <rect x="55" y="120" width="280" height="110" class="box"/>
+  <text x="195" y="165" class="label">USB-C VBUS</text><text x="195" y="200" class="small">+5 V schematic net</text>
+  <rect x="55" y="355" width="280" height="110" class="box"/>
+  <text x="195" y="400" class="label">VIN</text><text x="195" y="435" class="small">range pending confirmation</text>
+  <rect x="55" y="590" width="280" height="110" class="box"/>
+  <text x="195" y="635" class="label">Single-cell Battery</text><text x="195" y="670" class="small">JP1 / VBAT</text>
+
+  <rect x="445" y="120" width="300" height="110" class="orange"/>
+  <text x="595" y="165" class="label">Input Power Path</text><text x="595" y="200" class="small">Schottky diode / MOSFET network</text>
+  <rect x="445" y="590" width="300" height="110" class="orange"/>
+  <text x="595" y="635" class="label">MCP73831</text><text x="595" y="670" class="small">battery charge controller</text>
+
+  <rect x="850" y="270" width="260" height="110" class="orange"/>
+  <text x="980" y="315" class="label">VSYS</text><text x="980" y="350" class="small">system supply rail</text>
+  <rect x="850" y="470" width="260" height="110" class="orange"/>
+  <text x="980" y="515" class="label">AP2112K-3.3</text><text x="980" y="550" class="small">fixed 3.3 V LDO</text>
+
+  <rect x="1180" y="300" width="180" height="90" class="box"/>
+  <text x="1270" y="355" class="label">VSYS Pad</text>
+  <rect x="1180" y="470" width="180" height="110" class="box"/>
+  <text x="1270" y="515" class="label">3.3 V Rail</text><text x="1270" y="550" class="small">RP2350A and peripherals</text>
+  <rect x="1180" y="650" width="180" height="90" class="box"/>
+  <text x="1270" y="705" class="label">3V3 Pad / QWIIC</text>
+
+  <path d="M335 175H445" class="line"/><path d="M335 410H390V205H445" class="line"/>
+  <path d="M335 645H445" class="line"/><path d="M595 590V245" class="line"/>
+  <path d="M745 175H790V325H850" class="line"/><path d="M1110 325H1180" class="line"/>
+  <path d="M980 380V470" class="line"/><path d="M1110 525H1180" class="line"/><path d="M1270 580V650" class="line"/>
+  <text x="700" y="780" class="small">Module limits and source-priority behavior will be confirmed on manufactured units.</text>
+</svg>
