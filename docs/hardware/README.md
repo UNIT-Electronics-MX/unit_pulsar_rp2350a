@@ -7,6 +7,14 @@ separates design-defined connections from values not specified by the available
 board-level documentation. The board uses an RP2350A controller; the schematic
 title block says `PULSAR RP230A` and `REV: 1.0.0`.
 
+## Power Tree
+
+(resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.png)
+
+## Block Diagram
+
+(resources/unit_block_v_1_0_0_ue0103_pulsar_rp2350a.png)
+
 ## Naming Rules
 
 - Product name: **UNIT PULSAR RP2350 Multi-Interface Development Board**.
