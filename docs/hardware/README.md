@@ -9,11 +9,11 @@ title block says `PULSAR RP230A` and `REV: 1.0.0`.
 
 ## Power Tree
 
-(resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.jpg)
+![Power Tree](hardware/resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.jpg)
 
 ## Block Diagram
 
-(resources/unit_block_v_1_0_0_ue0103_pulsar_rp2350a.jpg)
+![Block Diagram](hardware/resources/unit_block_v_1_0_0_ue0103_pulsar_rp2350a.jpg)
 
 ## Naming Rules
 
