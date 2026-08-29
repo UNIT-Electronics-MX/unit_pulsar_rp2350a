@@ -51,6 +51,12 @@ Individual component ratings are not module ratings. In particular, the allowed
 
 ## Pinout
 
+<div align="center">
+    <a href="./unit_pinout_v1_3_0_ue0103_pulsar_rp2350a_en.pdf"><img src="./resources/unit_pinout_v1_3_0_ue0103_pulsar_rp2350a_en.png" width="500px"><br/>Pinout</a>
+    <br/>
+    <br/>
+    <br/>
+</div>
 The following mapping is transcribed from the V1.3 schematic and visible board
 labels. `D8` and `D9` appear on the board but are not traced to RP2350A GPIOs
 in the available schematic; treat them as unassigned.
