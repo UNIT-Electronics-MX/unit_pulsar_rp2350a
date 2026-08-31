@@ -15,7 +15,8 @@ framework aliases depend on the selected board definition.
 | `D5` | GPIO14 | Digital I/O | HSTX clock pair |
 | `D6` | GPIO13 | Digital I/O | HSTX Data2 pair |
 | `D7` | GPIO12 | Digital I/O | HSTX Data2 pair |
-| `D8`, `D9` | Not specified | Board labels present | No RP2350A connection shown in available schematic |
+| `D8` | USB_DM (pin 51) | USB D- (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R10 |
+| `D9` | USB_DP (pin 52) | USB D+ (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R11 |
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
 | `D11` / `MOSI` | GPIO22 | Digital I/O | General-purpose |
 | `D12` / `MISO` | GPIO23 | Digital I/O | General-purpose |
@@ -44,7 +45,9 @@ Important differences include:
 - Several conventional positions have PULSAR-specific functions such as
   `VBAT`, `3EN`, `RGB`, and microphone clock.
 - GPIO12–GPIO19 are shared with the HSTX video route.
-- `D8` and `D9` are not connected to RP2350A in the available schematic.
+- `D8` and `D9` are not general-purpose GPIO: they carry the RP2350A's native
+  USB D-/D+ signals (the same differential pair used by the USB-C connector),
+  each through a 22 Ω series resistor. Do not drive them as digital I/O.
 - Analog channel labels do not form a simple sequential GPIO order.
 - The board includes bottom-side connectors and components that may conflict
   mechanically with some carriers.

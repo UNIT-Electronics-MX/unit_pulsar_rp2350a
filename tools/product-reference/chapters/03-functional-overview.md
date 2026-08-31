@@ -7,7 +7,7 @@ application.
 
 ### **3.1 Block Diagram** {.section-page}
 
-![](hardware/resources/unit_block_diagram_v_1_3_0_pulsar_rp2350a.png){width=7.0in}
+![](hardware/resources/unit_block_v_1_0_0_ue0103_pulsar_rp2350a.jpg){width=7.0in}
 
 The RP2350A controls every data path. W25Q128 flash stores executable code and
 nonvolatile application data. PSRAM extends working memory. The microSD socket
