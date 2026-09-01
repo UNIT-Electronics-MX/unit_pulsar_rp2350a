@@ -164,7 +164,7 @@ the schematic and module specifications.
 
 ### **3.9 Power Tree** {.section-page}
 
-![](hardware/resources/unit_power_tree_v_1_3_0_pulsar_rp2350a.png){width=7.0in}
+![](hardware/resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.jpg){width=7.0in}
 
 The diagram is a functional power tree, not a replacement for the schematic.
 USB-C VBUS, `VIN`, and battery are represented in the power-path design.
