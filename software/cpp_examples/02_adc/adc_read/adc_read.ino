@@ -1,9 +1,10 @@
 // Source: PULSAR RP2350 technical wiki, 2-ADC-Basics.md
 
-const int adcPin = 26;
+const int adcPin = 26;      //A3
 
 void setup() {
   Serial.begin(115200);
+  analogReadResolution(12);
 }
 
 void loop() {
