@@ -20,7 +20,7 @@ framework aliases depend on the selected board definition.
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
 | `D11` / `MOSI` | GPIO22 | Digital I/O | General-purpose |
 | `D12` / `MISO` | GPIO23 | Digital I/O | General-purpose |
-| `D13` / `SCK` / LED | GPIO20 | Digital I/O and user LED | `BUILTIN1` |
+| `D13` / `SCK` / LED | GPIO22 | Digital I/O and user LED | `BUILTIN1` |
 | `A1` / `D15` | GPIO29 / ADC3 | Analog-capable I/O | Also routed to HSTX connector |
 | `A2` / `D16` | GPIO27 / ADC1 | Analog-capable I/O | Edge pad |
 | `A3` / `D17` | GPIO26 / ADC0 | Analog-capable I/O | Edge pad |
