@@ -18,8 +18,8 @@ framework aliases depend on the selected board definition.
 | `D8` | USB_DM (pin 51) | USB D- (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R10 |
 | `D9` | USB_DP (pin 52) | USB D+ (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R11 |
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
-| `D11` / `MOSI` | GPIO22 | Digital I/O | General-purpose |
-| `D12` / `MISO` | GPIO23 | Digital I/O | General-purpose |
+| `D11` / `MOSI` | GPIO23 | Digital I/O | General-purpose |
+| `D12` / `MISO` | GPIO20 | Digital I/O | General-purpose |
 | `D13` / `SCK` / LED | GPIO22 | Digital I/O and user LED | `BUILTIN1` |
 | `A1` / `D15` | GPIO29 / ADC3 | Analog-capable I/O | Also routed to HSTX connector |
 | `A2` / `D16` | GPIO27 / ADC1 | Analog-capable I/O | Edge pad |
