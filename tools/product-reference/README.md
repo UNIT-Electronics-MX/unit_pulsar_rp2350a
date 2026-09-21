@@ -10,6 +10,7 @@ datasheet, and technical wiki.
 Requirements:
 
 - Pandoc
+- Python 3 with Pillow
 - WeasyPrint
 
 Run from the repository root and direct validation output outside the
@@ -27,6 +28,14 @@ unit_product_reference_v_0_1_0_pulsar_rp2350a.docx
 unit_product_reference_v_0_1_0_pulsar_rp2350a.html
 unit_product_reference_v_0_1_0_pulsar_rp2350a.pdf
 ```
+
+The build prepares temporary PNG/JPEG copies with a maximum dimension of
+2400 pixels for DOCX, HTML, and PDF output. This prevents oversized hardware
+exports from exceeding Pillow's image-loading limit in WeasyPrint. Original
+files in `hardware/resources/` remain unchanged. The preprocessing step accepts
+source images up to 200 million pixels and reports the asset path if an image
+cannot be read. WeasyPrint rendering errors fail the build so incomplete PDFs
+are not published.
 
 GitHub Actions publishes the PDF and DOCX under `docs/hardware/`. Do not edit
 generated documents or `docs/` manually.

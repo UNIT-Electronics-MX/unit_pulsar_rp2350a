@@ -16,6 +16,7 @@ fi
 
 PDF_RENDERER=""
 PDF_RENDERER_COMMAND=()
+IMAGE_PYTHON_COMMAND=(python3)
 
 if command -v weasyprint >/dev/null 2>&1; then
   PDF_RENDERER="weasyprint"
@@ -26,6 +27,7 @@ else
     PYTHONPATH="$BUNDLED_SITE_PACKAGES" python3 -c 'import weasyprint' 2>/dev/null; then
     PDF_RENDERER="weasyprint"
     PDF_RENDERER_COMMAND=(env "PYTHONPATH=$BUNDLED_SITE_PACKAGES" python3 -m weasyprint)
+    IMAGE_PYTHON_COMMAND=(env "PYTHONPATH=$BUNDLED_SITE_PACKAGES" python3)
   elif command -v google-chrome >/dev/null 2>&1; then
     PDF_RENDERER="chrome"
     PDF_RENDERER_COMMAND=(google-chrome)
@@ -39,6 +41,11 @@ else
     echo "Error: a PDF renderer is required: weasyprint, Google Chrome, or Chromium" >&2
     exit 1
   fi
+fi
+
+if ! "${IMAGE_PYTHON_COMMAND[@]}" -c 'from PIL import Image' 2>/dev/null; then
+  echo "Error: Python 3 and Pillow are required to prepare document images." >&2
+  exit 1
 fi
 
 for required_file in \
@@ -74,21 +81,28 @@ for chapter in "${CHAPTERS[@]}"; do
   CHAPTER_PATHS+=("$PROJECT_DIR/$chapter")
 done
 
-while IFS= read -r asset; do
-  if [[ ! -f "$PROJECT_DIR/$asset" ]]; then
-    echo "Error: a chapter references a missing asset: $asset" >&2
-    exit 1
-  fi
-done < <(
+mapfile -t ASSETS < <(
   grep -hEo '!\[[^]]*\]\([^)]*\)' "${CHAPTER_PATHS[@]}" |
     sed 's/^.*](//;s/)$//' |
     sort -u
 )
 
+for asset in "${ASSETS[@]}"; do
+  if [[ ! -f "$PROJECT_DIR/$asset" ]]; then
+    echo "Error: a chapter references a missing asset: $asset" >&2
+    exit 1
+  fi
+done
+
 mkdir -p "$OUTPUT_DIR"
 
 TEMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEMP_DIR"' EXIT
+
+# Pandoc looks here first for reduced copies; the source artwork stays intact.
+"${IMAGE_PYTHON_COMMAND[@]}" "$PROJECT_DIR/tools/product-reference/prepare-images.py" \
+  "$PROJECT_DIR" "$TEMP_DIR" "${ASSETS[@]}"
+RESOURCE_PATH="$TEMP_DIR:$PROJECT_DIR"
 
 CONTENTS_FILE="$TEMP_DIR/contents.md"
 {
@@ -144,7 +158,7 @@ pandoc \
   --standalone \
   --metadata-file="$BOOK_FILE" \
   --reference-doc="$REFERENCE_DOC" \
-  --resource-path="$PROJECT_DIR" \
+  --resource-path="$RESOURCE_PATH" \
   "${DOCUMENT_INPUTS[@]}" \
   --output="$DOCX_FILE"
 
@@ -158,12 +172,22 @@ pandoc \
   --metadata-file="$BOOK_FILE" \
   --template="$HTML_TEMPLATE" \
   --css="$HTML_STYLESHEET" \
-  --resource-path="$PROJECT_DIR" \
+  --resource-path="$RESOURCE_PATH" \
   "${CHAPTER_PATHS[@]}" \
   --output="$HTML_FILE"
 
 if [[ "$PDF_RENDERER" == "weasyprint" ]]; then
-  "${PDF_RENDERER_COMMAND[@]}" "$HTML_FILE" "$PDF_FILE"
+  RENDER_LOG="$TEMP_DIR/pdf-render.log"
+  if ! "${PDF_RENDERER_COMMAND[@]}" "$HTML_FILE" "$PDF_FILE" 2>"$RENDER_LOG"; then
+    cat "$RENDER_LOG" >&2
+    exit 1
+  fi
+  cat "$RENDER_LOG" >&2
+  # WeasyPrint can return success after omitting images that failed to load.
+  if grep -q '^ERROR:' "$RENDER_LOG"; then
+    echo "Error: WeasyPrint reported rendering errors; document build failed." >&2
+    exit 1
+  fi
 else
   "${PDF_RENDERER_COMMAND[@]}" \
     --headless \
