@@ -22,6 +22,8 @@ USB-C, BOOT, reset, QSPI flash, PSRAM, RP2350A, QWIIC, and RGB indicators are
 visible from this side. The bottom side groups removable storage, battery,
 audio, SWD, and HSTX connections.
 
+![](hardware/resources/unit_topology_v1_3_0_ue0103_pulsar_rp2350a.jpg){width=7.0in}
+
 | Board region | Main elements | Design intent |
 |---|---|---|
 | USB end | USB-C, BOOT, reset, power/charge indicators | Programming and initial power-up |
