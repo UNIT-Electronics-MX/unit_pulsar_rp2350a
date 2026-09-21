@@ -1,7 +1,6 @@
 ## **4 Connectors & Pinouts**
 
-Pin labels describe hardware revision V1.3. GPIO numbers identify RP2350A signals;
-framework aliases depend on the selected board definition.
+Pin labels describe hardware revision V1.3.0. GPIO numbers identify RP2350A signals; framework aliases depend on the selected board definition.
 
 ### **4.1 General Pinout** {.section-page}
 
@@ -14,122 +13,147 @@ framework aliases depend on the selected board definition.
 | `D4` | GPIO15 | Digital I/O | HSTX clock pair |
 | `D5` | GPIO14 | Digital I/O | HSTX clock pair |
 | `D6` | GPIO13 | Digital I/O | HSTX Data2 pair |
-| `D7` | GPIO12 | Digital I/O | HSTX Data2 pair |
-| `D8` | USB_DM (pin 51) | USB D- (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R10 |
-| `D9` | USB_DP (pin 52) | USB D+ (native RP2350A USB PHY) | Same differential pair as the USB-C connector, via 22 Ω series resistor R11 |
+| `D7` | GPIO12 | Digital I/O | HSTX Data2 pair / optional BMI270 INT1 |
+| `D8` | USB_DM (pin 51) | USB D- | Shared with USB-C through 22 Ω series resistor R10 |
+| `D9` | USB_DP (pin 52) | USB D+ | Shared with USB-C through 22 Ω series resistor R11 |
 | `D10` / `SS` | GPIO21 | Digital I/O | General-purpose |
 | `D11` / `MOSI` | GPIO23 | Digital I/O | General-purpose |
 | `D12` / `MISO` | GPIO20 | Digital I/O | General-purpose |
 | `D13` / `SCK` / LED | GPIO22 | Digital I/O and user LED | `BUILTIN1` |
 | `A1` / `D15` | GPIO29 / ADC3 | Analog-capable I/O | Also routed to HSTX connector |
-| `A2` / `D16` | GPIO27 / ADC1 | Analog-capable I/O | Edge pad |
-| `A3` / `D17` | GPIO26 / ADC0 | Analog-capable I/O | Edge pad |
+| `A2` / `D16` | GPIO27 / ADC1 | Analog-capable I/O | Castellated header |
+| `A3` / `D17` | GPIO26 / ADC0 | Analog-capable I/O | Castellated header |
 | `SDA` / `D18` | GPIO8 | I2C data | BMI270 bus |
 | `SCL` / `D19` | GPIO9 | I2C clock | BMI270 bus |
-| `D21` | GPIO10 | PDM clock | ICS-41350 clock |
-| `RGB` | GPIO1 | RGB-chain output | Three onboard WS2812 LEDs |
+| `D21` / `CLK_MIC` | GPIO10 | PDM clock | ICS-41350 clock |
+| `DATA_MIC` | GPIO11 | PDM data input | ICS-41350 data |
+| `RGB` | GPIO1 | NeoPixel data input | Three onboard WS2812 LEDs |
+| `NEOPIXEL DOUT` | — | RGB-chain extension output | Available at castellated header when `RGB_PAD` is closed |
 
-Power and control positions include `3V3`, `3EN`, `VBAT`, `VUSB`, `VIN`,
-`RST`, and multiple `GND` pads. Their physical presence does not establish
-unreleased input or load limits.
+Power and control positions include `3V3`, `3EN`, `VBAT`, `5V`, `VIN`, `RESET`, and multiple `GND` connections.
 
-### **4.2 Arduino NANO Pinout Compatibility** {.section-page}
+`3EN`, `VBAT`, and `NEOPIXEL DOUT` are disconnected from their castellated-header positions by default to preserve the Nano-style pin layout. They can be enabled individually by closing the corresponding solder pads on the bottom side of the PCB.
 
-The board uses two parallel 15-position edge rows inspired by the Arduino Nano
-layout. This provides a familiar mechanical and labeling pattern, but it is not
-a statement of full electrical or shield compatibility.
+The `3EN` position provides access to the AP2112K `EN` signal when its corresponding solder jumper is closed, allowing external control of the 3.3 V regulator.
+
+The `INT_PAD` solder jumper optionally connects BMI270 `INT1` to `D7` / GPIO12.
+
+### **4.2 Arduino Nano Pinout Compatibility** {.section-page}
+
+The board uses two parallel 15-position castellated edge rows inspired by the Arduino Nano layout. This provides a familiar mechanical footprint and labeling pattern, but does not imply full electrical or shield compatibility.
 
 Important differences include:
 
-- RP2350A uses a 3.3 V logic domain.
-- Several conventional positions have PULSAR-specific functions such as
-  `VBAT`, `3EN`, `RGB`, and microphone clock.
-- GPIO12–GPIO19 are shared with the HSTX video route.
-- `D8` and `D9` are not general-purpose GPIO: they carry the RP2350A's native
-  USB D-/D+ signals (the same differential pair used by the USB-C connector),
-  each through a 22 Ω series resistor. Do not drive them as digital I/O.
-- Analog channel labels do not form a simple sequential GPIO order.
-- The board includes bottom-side connectors and components that may conflict
-  mechanically with some carriers.
+- The RP2350A and board GPIO operate in the 3.3 V logic domain.
+- Several conventional positions have PULSAR-specific functions, including `VBAT`, `3EN`, `NEOPIXEL DOUT`, and PDM microphone signals.
+- `3EN`, `VBAT`, and `NEOPIXEL DOUT` are disconnected from their castellated-header positions by default and can be enabled through bottom-side solder jumpers.
+- `D7` / GPIO12 can optionally receive the BMI270 `INT1` signal by closing `INT_PAD`.
+- GPIO12–GPIO19 are shared with the HSTX video interface.
+- `D8` and `D9` carry the RP2350A native USB D-/D+ signals. They are connected to the same differential pair used by the USB-C connector through 22 Ω series resistors and should not be treated as conventional digital I/O.
+- Analog channel labels do not follow a simple sequential GPIO order.
+- Bottom-side connectors and components may require additional clearance when the board is installed in a carrier.
 
-Before installing the board into a Nano-style carrier, compare every power,
-reset, analog, and digital position and verify bottom-side clearance.
+Before installing the board into a Nano-style carrier, verify power, reset, analog, digital, and mechanically shared positions, as well as bottom-side clearance.
 
 ### **4.3 QWIIC Connector** {.section-page}
 
-J1 is a four-position, 1 mm-pitch right-angle connector carrying:
+J1 is a four-position, 1 mm-pitch QWIIC connector carrying:
 
 | Signal | RP2350A connection | Function |
 |---|---:|---|
 | GND | Ground | Common return |
-| 3.3 V | Regulated rail | Peripheral supply; available current not specified |
+| 3.3 V | Regulated rail | Peripheral supply |
 | SDA | GPIO24 | External I2C data |
 | SCL | GPIO25 | External I2C clock |
 
-The QWIIC bus is separate from the GPIO8/GPIO9 bus used by BMI270. A controlled
-contact-number and mating-cable drawing is not included, so verify the physical
-orientation against controlled connector data when producing a harness.
+The QWIIC interface operates in the 3.3 V logic domain and is separate from the GPIO8/GPIO9 I2C bus used by the onboard BMI270.
+
+The QWIIC 3.3 V supply is provided by the same AP2112K regulator used by the board. The regulator supports up to 600 mA total output current, shared between the onboard circuitry and all external 3.3 V loads.
+
+Use 3.3 V-compatible QWIIC peripherals and verify connector orientation before connection.
 
 ### **4.4 MicroSD Connector** {.section-page}
 
 | Socket signal | GPIO | Description |
 |---|---:|---|
-| `CLK` | 2 | SDIO clock / SPI SCK |
-| `CMD` | 3 | SDIO command / SPI MOSI |
-| `DAT0` | 4 | SDIO data 0 / SPI MISO |
-| `DAT1` | 5 | SDIO data 1 |
-| `DAT2` | 6 | SDIO data 2 |
-| `DAT3` | 7 | SDIO data 3 / SPI chip select |
-| Detect | Dedicated socket contact | Card-detect handling depends on firmware routing |
+| `CLK` | GPIO2 | SDIO clock / SPI SCK |
+| `CMD` | GPIO3 | SDIO command / SPI MOSI |
+| `DAT0` | GPIO4 | SDIO data 0 / SPI MISO |
+| `DAT1` | GPIO5 | SDIO data 1 |
+| `DAT2` | GPIO6 | SDIO data 2 |
+| `DAT3` | GPIO7 | SDIO data 3 / SPI chip select |
 | VDD | 3.3 V | Card supply |
-| GND / shields | Ground | Return and mechanical shield |
+| GND / shield | Ground | Electrical return and connector shield |
 
-Insert and remove a card only when filesystem activity has stopped. Software
-must flush and close files before power removal.
+The microSD interface supports the complete four-bit SDIO signal group. Current UNIT Electronics Wiki examples use the SPI-compatible subset.
 
-### **4.5 Battery Connections**
+Insert or remove the microSD card only when filesystem activity has stopped. Software should flush and close open files before card extraction or power removal.
 
-JP1 is a two-position PH2.0 battery connector associated with `VBAT` and the
-battery return. Polarity markings are present on the bottom side. The
-MCP73831 charge controller is designed for a single-cell Li-Ion/Li-Polymer
-system, but the compatible cell, connector, polarity convention, charge
-current, and operating range are not specified by the available module-level
-documentation.
+### **4.5 Battery Connections** {.section-page}
 
-Do not connect a battery based solely on connector fit. Reversed polarity or an
-unsupported chemistry can damage the board or cell.
+JP1 provides the battery connection for a single-cell LiPo battery. Hardware V1.3.0 supports PH2.0 mm or PH1.25 mm battery connector options depending on the assembled configuration.
+
+The battery input is designed for a single-cell LiPo battery with a nominal voltage of 3.7 V and a maximum fully charged voltage of 4.2 V. Battery charging is managed by the onboard MCP73831T-2ACI/OT and is configured for a nominal charge current of 200 mA.
+
+Polarity markings are provided on the bottom side of the PCB. Always verify connector polarity before connecting a battery, as connector compatibility alone does not guarantee correct polarity.
+
+The `VBAT_PAD` solder jumper can connect the battery rail to the corresponding castellated-header position. This connection is open by default. When the solder jumper is closed, the battery voltage becomes available at the `VBAT` castellated pad.
+
+Do not connect multi-cell battery packs or batteries exceeding 4.2 V.
 
 ### **4.6 HSTX 22-pin Connector** {.section-page}
 
-J5 is a 22-position, 0.5 mm-pitch FFC/FPC connector. The schematic exposes
-D0–D7 (GPIO12–GPIO19), A0/GPIO28, A1/GPIO29, GPIO24/SDA,
-GPIO25/SCL, 3.3 V, and interleaved returns. HSTX video uses the eight
-GPIO12–GPIO19 signals as four TMDS pairs.
+J5 is a 22-position, 0.5 mm-pitch FFC/FPC connector that provides the RP2350A HSTX interface together with auxiliary I2C, analog, power, and ground connections.
 
-The flex-cable contact side, complete numbered contact table, cable length, and
-display adapter are not specified by a controlled mechanical drawing. Do not infer pin
-1 from an unannotated photograph.
+| Pin | Signal | RP2350A connection | Function |
+|---:|---|---|---|
+| 1 | `D7` / `INT1` | GPIO12 | HSTX Data2 / optional BMI270 INT1 |
+| 2 | GND | Ground | HSTX return |
+| 3 | `D6` | GPIO13 | HSTX Data2 |
+| 4 | `D5` | GPIO14 | HSTX clock |
+| 5 | GND | Ground | HSTX return |
+| 6 | `D4` | GPIO15 | HSTX clock |
+| 7 | `D3` | GPIO16 | HSTX Data1 |
+| 8 | GND | Ground | HSTX return |
+| 9 | `D2` | GPIO17 | HSTX Data1 |
+| 10 | `D1` | GPIO18 | HSTX Data0 |
+| 11 | GND | Ground | HSTX return |
+| 12 | `D0` | GPIO19 | HSTX Data0 |
+| 13 | `A1` / `D15` | GPIO29 / ADC3 | Analog-capable auxiliary signal |
+| 14 | GND | Ground | Return |
+| 15 | `A0` | GPIO28 / ADC2 | Analog-capable auxiliary signal |
+| 16 | GND | Ground | Return |
+| 17 | `SDA` | GPIO24 | External I2C data |
+| 18 | GND | Ground | I2C / auxiliary return |
+| 19 | `SCL` | GPIO25 | External I2C clock |
+| 20 | GND | Ground | I2C / auxiliary return |
+| 21 | 3.3 V | Regulated 3.3 V rail | Peripheral supply |
+| 22 | GND | Ground | Power return |
 
-### **4.7 USB-C, BOOT, and Reset**
+GPIO12 through GPIO19 provide the eight high-speed signals used by the RP2350A HSTX interface. In the DVI-compatible configuration, these signals form the four differential signal pairs required for video output.
 
-The USB-C connector carries VBUS and the RP2350A USB data pair. The schematic
-shows the required USB-C configuration resistors and ESD protection. USB is the
-preferred programming and first-power interface.
+The connector also exposes GPIO24 and GPIO25 for the external I2C bus, GPIO28 and GPIO29 as analog-capable auxiliary signals, and the regulated 3.3 V rail.
 
-BOOT selects the ROM USB boot path used for firmware recovery or initial
-programming. Reset restarts RP2350A while power remains applied. Exact button
-timing depends on the selected toolchain, but the common sequence is to hold
-BOOT while resetting or connecting USB, then release BOOT after enumeration.
+The UNIT DevLab DVI to FPC Adapter can be used with this connector to provide a DVI-compatible video interface.
 
-### **4.8 SWD and Test Pads** {.section-page}
+When HSTX video output is active, GPIO12–GPIO19 must not be simultaneously driven by external circuitry through the castellated headers or other connections.
 
-Bottom-side pads expose `SWDIO`, `SWCLK`, 3.3 V reference, and GND for an
-external debug probe. SWD supports firmware loading and source-level debug when
-the toolchain and processor architecture are configured consistently.
+The `INT_PAD` solder jumper can connect BMI270 `INT1` to GPIO12 (`D7`). Because GPIO12 is also part of the HSTX interface, applications using HSTX must account for this shared connection before closing `INT_PAD`.
 
-**Silkscreen erratum:** The SWD `VCC` and `GND` labels are reversed. See
-Section 9.6 for the corrected mapping before connecting a debug probe.
+Use a compatible 22-position, 0.5 mm-pitch FFC/FPC cable and verify cable contact orientation before connection. Remove board power before inserting or removing the FFC/FPC cable.
 
-Use short connections, share ground, and let the probe sense the target's 3.3 V
-rail. Do not use the reference pad to power the complete board unless the debug
-probe is explicitly rated and the board power path permits it.
+### **4.7 USB-C, BOOT, and Reset** {.section-page}
+
+J2 provides USB-C power, programming, and USB data connectivity. The USB D- and D+ signals connect to the RP2350A native USB PHY and are also exposed at the `D8` and `D9` positions through 22 Ω series resistors.
+
+The BOOT button selects the RP2350A ROM USB boot mode used for firmware programming and recovery. The RESET button restarts the RP2350A while board power remains applied.
+
+A typical firmware-recovery sequence is to hold BOOT while resetting or connecting USB, then release BOOT after the device enters USB boot mode.
+
+### **4.8 SWD and Debug Pads** {.section-page}
+
+Bottom-side debug pads expose `SWDIO`, `SWCLK`, 3.3 V reference, and GND for connection to an external SWD debug probe. The SWD interface supports firmware programming and source-level debugging of the RP2350A.
+
+**Silkscreen erratum:** The SWD `VCC` and `GND` labels are reversed. Refer to Section 9.6 for the corrected mapping before connecting a debug probe.
+
+Use short debug connections and ensure that the target board and debug probe share a common ground. The 3.3 V pad should be used as the target-voltage reference for the debug probe and should not be used to power the complete board unless the probe and board power configuration explicitly support it.

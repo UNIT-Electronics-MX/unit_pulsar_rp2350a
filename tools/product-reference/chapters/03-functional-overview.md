@@ -174,7 +174,7 @@ Applications should limit RGB brightness when power consumption or thermal rise 
 
 U1 is an AP2112K fixed 3.3 V LDO regulator. It converts the `VSYS` rail into the regulated 3.3 V logic domain used by the RP2350A, external memories, sensors, indicators, microSD interface, and QWIIC connector. The regulator supports up to 600 mA total output current, shared between the onboard circuitry and any external load connected to the 3.3 V rail.
 
-The AP2112K `EN` signal controls the 3.3 V regulator. The `EN_PAD` solder jumper allows this signal to be routed to the castellated header, providing external control of the regulator enable function when the jumper is closed.
+The AP2112K `EN` signal controls the 3.3 V regulator. The corresponding castellated-header position is labeled `3EN` on the PCB. The `EN_PAD` solder jumper connects the regulator `EN` signal to the `3EN` castellated-header position, allowing external control of the 3.3 V regulator when the jumper is closed.
 
 IC2 is an MCP73831T-2ACI/OT single-cell Li-Ion/LiPo battery charge controller. Hardware V1.3.0 is configured for a nominal charge current of 200 mA. The charge current is established by the PROG resistor and may be modified by changing this resistor according to the MCP73831 configuration requirements.
 
