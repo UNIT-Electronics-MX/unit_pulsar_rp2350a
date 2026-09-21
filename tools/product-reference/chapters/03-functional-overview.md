@@ -19,6 +19,34 @@ LEDs provide high-speed and visual outputs.
 
 ![](hardware/resources/unit_topology_v1_3_0_ue0103_pulsar_rp2350a.png){width=7.0in}
 
+| RefDes | Component | Confirmed role |
+|---|---|---|
+| IC3 | RP2350A | Main microcontroller |
+| IC1 | W25Q128JVPIQ | 128 Mbit (16 MiB) QSPI flash memory |
+| IC4 | APS6404L-3SQR-ZR | 8 MiB external PSRAM |
+| IC5 | BMI270 | Six-axis IMU connected to the internal I2C bus |
+| MK1 | ICS-41350 | Digital PDM MEMS microphone |
+| U1 | AP2112K-3.3TRG1 | Fixed 3.3 V LDO regulator |
+| IC2 | MCP73831T-2ACI/OT | Single-cell Li-Ion/LiPo battery charge controller |
+| XTAL1 | 12 MHz oscillator | RP2350A reference clock source |
+| L1 | 3.3 µH inductor | RP2350A internal switching-regulator inductor |
+| MICRO_SD_HOLDER | 47309-2651 | microSD card socket connected through four-bit SDIO signals |
+| LED1–LED3 | XL-1010RGBC-WS2812B | Cascaded addressable RGB LEDs |
+| J1 | HCZZ0032-4 | Four-position, 1 mm pitch QWIIC connector |
+| J2 | USB-C connector | USB power, programming, and USB data interface |
+| JP1 | Battery connector | Two-position single-cell LiPo battery connection |
+| J5 | FH34SRJ-22S-0.5SH(50) | 22-position, 0.5 mm pitch FFC/FPC connector for HSTX video and auxiliary signals |
+| S2 | BOOT switch | Forces RP2350A USB boot mode during startup/reset |
+| JP2 | Castellated header row | Left-side GPIO, power, analog, and digital expansion |
+| JP3 | Castellated header row | Right-side GPIO, power, analog, and digital expansion |
+| EN_PAD | Solder jumper | Connects the AP2112K enable signal to the castellated header, allowing external control of the 3.3 V regulator |
+| VBAT_PAD | Solder jumper | Connects the VBAT rail to the castellated header, providing access to the battery supply |
+| INT_PAD | Solder jumper | Connects the BMI270 interrupt signal to the RP2350A GPIO, enabling hardware interrupt operation |
+| RGB_PAD | Solder jumper | Connects the data output of the third onboard NeoPixel to the castellated header, allowing the RGB chain to be extended with external NeoPixels |
+| SWDIO | Debug test pad | RP2350A Serial Wire Debug data signal |
+| SWCLK | Debug test pad | RP2350A Serial Wire Debug clock signal |
+| GND | Debug test pad | Ground reference for the SWD interface |
+
 The top side groups programming, processing, memory, and user-visible controls.
 USB-C, BOOT, reset, QSPI flash, PSRAM, RP2350A, QWIIC, and RGB indicators are
 visible from this side. The bottom side groups removable storage, battery,
