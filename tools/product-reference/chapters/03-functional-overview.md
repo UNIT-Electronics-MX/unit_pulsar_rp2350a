@@ -148,11 +148,13 @@ The onboard 47309-2651 microSD socket is connected to a complete four-bit SDIO s
 | `SDIO_DAT2` | 6 | Not used by SPI mode |
 | `SDIO_DAT3` | 7 | Chip select |
 
-The provided examples use the SPI-compatible subset through `SPI` and `SDFS` for initialization, file creation, reading, directory enumeration, and data logging.
+The UNIT Electronics Wiki provides microSD examples using the SPI-compatible subset through `SPI` and `SDFS`, including card initialization, file creation and reading, directory enumeration, and data logging.
 
-Software with four-bit SDIO support can additionally use DAT1 and DAT2. File writes should be flushed and closed before card extraction or power removal.
+Software with four-bit SDIO support can additionally use `SDIO_DAT1` and `SDIO_DAT2`, allowing the complete SDIO interface provided by the hardware to be used.
 
-Card capacity, speed class, and filesystem support depend on the software environment. FAT32 is recommended for the provided examples.
+File writes should be flushed and closed before card extraction or power removal to reduce the risk of filesystem corruption.
+
+Card capacity, speed class, and filesystem support depend on the software environment and microSD card used. FAT32 is recommended for the examples provided in the UNIT Electronics Wiki.
 
 ### **3.7 LED Indicators** {.section-page}
 
@@ -208,41 +210,47 @@ Measurement range, filtering, output data rate, interrupt source, and interrupt 
 
 ### **3.11 PDM Microphone** {.section-page}
 
-The ICS-41350 is an onboard digital MEMS microphone. RP2350A supplies its PDM
-clock on GPIO10 and receives the one-bit data stream on GPIO11. The software PDM
-stack clocks the microphone, decimates the stream, and produces PCM sample
-buffers for analysis, visualization, streaming, or storage.
+The ICS-41350 is an onboard digital MEMS microphone connected to the RP2350A through a PDM interface. The RP2350A supplies the PDM clock on GPIO10 and receives the microphone data stream on GPIO11.
+
+The software PDM interface clocks the microphone and converts the PDM stream into PCM sample buffers for audio analysis, visualization, recording, streaming, or storage.
 
 ![PDM microphone location](hardware/resources/unit_wiki_pdm_pulsar_rp2350.png){width=5.5in}
 
-The acoustic port must remain unobstructed. Enclosures, adhesive, contamination,
-and board mounting can affect acoustic performance. Board-level sensitivity,
-noise, frequency response, and enclosure behavior depend on the mechanical and
-acoustic implementation and are not specified at module level.
+The microphone is mounted on the top side of the board, while its acoustic port is exposed through an opening in the PCB and is accessible from the bottom side.
+
+The acoustic port must remain unobstructed. Enclosures, adhesive, dust, contamination, or mounting surfaces covering the port can affect acoustic performance.
+
+Microphone sampling configuration and digital filtering are software-dependent. Final acoustic performance can also be affected by enclosure geometry and the mechanical integration of the board.
+
+The UNIT Electronics Wiki provides software examples for PDM microphone initialization, audio acquisition, and processing.
 
 ### **3.12 I2C and QWIIC Expansion** {.section-page}
 
-The board provides two distinct I2C routes. GPIO8/GPIO9 serve the onboard
-BMI270 and are also represented by `SDA`/`SCL` edge labels. GPIO24/GPIO25 feed
-the four-position QWIIC connector and HSTX connector positions.
+The UNIT PULSAR RP2350A provides two independent I2C routes, allowing the onboard motion sensor and external QWIIC devices to operate on separate buses.
+
+| Interface | SDA | SCL | Primary use |
+|---|---:|---:|---|
+| Internal I2C | GPIO8 | GPIO9 | Onboard BMI270 and castellated-header access |
+| QWIIC I2C | GPIO24 | GPIO25 | External QWIIC devices and HSTX connector access |
 
 ![I2C and QWIIC connections](hardware/resources/unit_wiki_i2c_pulsar_rp2350.png){width=6.2in}
 
-This separation lets an application keep the IMU bus independent from external
-QWIIC sensors. The wiki includes bus scanning, BMI270 access, EEPROM byte and
-block operations, hexadecimal dumps, and structured EEPROM records. External
-pull-ups, device addresses, bus capacitance, and cable length must be considered
-when attaching multiple devices.
+GPIO8 and GPIO9 connect the onboard BMI270 and are also exposed through the castellated headers. GPIO24 and GPIO25 connect to the four-position QWIIC connector and are also routed to the HSTX connector.
+
+Both interfaces operate in the 3.3 V logic domain. External I2C devices must therefore be compatible with 3.3 V operation unless appropriate level translation is provided.
+
+Using separate I2C routes allows applications to keep the onboard BMI270 bus independent from external QWIIC peripherals. Device addresses, pull-up configuration, bus capacitance, and cable length must be considered when multiple devices are connected to the same bus.
+
+The UNIT Electronics Wiki provides additional examples for I2C bus scanning, BMI270 communication, EEPROM byte and block operations, hexadecimal dumps, and structured EEPROM data handling.
 
 ### **3.13 Combined System Operation** {.section-page}
 
-The board is designed for concurrent use of its subsystems. For example, the
-BMI270 can control an HSTX-rendered object while PSRAM holds large graphics or
-history buffers; the microphone or an I2C sensor can produce records stored on
-microSD; and RGB LEDs can show acquisition, storage, or fault state.
+The UNIT PULSAR RP2350A is designed to support concurrent operation of its onboard subsystems. The RP2350A can combine sensing, audio acquisition, removable storage, external memory, RGB indication, I2C expansion, and HSTX video output within the same application.
 
-A robust application initializes one subsystem at a time, checks every return
-value, keeps high-rate and interrupt data in internal SRAM, moves large buffers
-to PSRAM, flushes storage before shutdown, and yields enough execution time for
-USB and framework services. The repository's C++ examples implement each stage
-separately before the combined application.
+For example, BMI270 motion data can be used to control HSTX-rendered graphics while PSRAM provides framebuffer or application storage. PDM microphone or I2C sensor data can be buffered in PSRAM and recorded to the microSD card, while the onboard RGB LEDs provide acquisition, storage, or system-status indication.
+
+Applications using multiple high-bandwidth peripherals should consider memory allocation, DMA usage, interrupt timing, storage write latency, and peripheral resource sharing. Time-critical data and interrupt-related buffers should remain in internal SRAM where appropriate, while PSRAM can be used for larger framebuffers, audio buffers, sensor histories, and application data.
+
+Shared GPIO functions must also be considered when enabling HSTX or optional solder-jumper connections.
+
+Additional software examples in the UNIT Electronics Wiki demonstrate the individual subsystems before combining them into more complex applications.
