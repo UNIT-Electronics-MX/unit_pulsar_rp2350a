@@ -73,25 +73,34 @@ RP2350A input/output specifications and the power state of both devices.
 | LDO output | 3.3 V nominal | U1 component selection |
 | Oscillator frequency | 12 MHz | XTAL1 |
 
-### **2.5 Unspecified Board Characteristics** {.section-page}
+### **2.5 Application-Dependent and Uncharacterized Parameters** {.section-page}
 
-- `VIN`, `VBAT`, and USB operating and absolute-maximum ranges
-- Available 3.3 V current for external loads
-- Battery charge current and supported cell/cable compatibility
-- Source priority and reverse-current behavior among USB, `VIN`, and battery
-- Total current consumption in boot, idle, storage, video, and audio modes
-- GPIO drive and input thresholds as exposed by each connector
-- Validated QSPI, PSRAM, SDIO, PDM, I2C, and HSTX operating rates
-- Board-level temperature, humidity, ESD, and thermal performance
+Some electrical and performance characteristics depend on firmware configuration, operating mode, connected peripherals, and application load. Unless otherwise specified, these parameters should not be interpreted as guaranteed board-level limits.
+
+- **Available 3.3 V current for external loads:** the AP2112K-3.3 provides up to 600 mA total output current. This current is shared by the RP2350A, onboard memories, sensors, LEDs, and external 3.3 V loads. Available external current therefore depends on the active board configuration and application workload.
+
+- **Board current consumption:** total current consumption varies with RP2350A activity, clock configuration, enabled peripherals, RGB LED brightness, external memory activity, microSD operation, audio capture, HSTX video output, and connected external devices.
+
+- **High-speed interface performance:** maximum validated operating rates for external microSD, PDM, I2C, and HSTX interfaces depend on firmware configuration, connected devices, cabling, and signal integrity.
+
+- **GPIO electrical characteristics:** GPIO drive strength, input thresholds, and other pin-level electrical characteristics follow the RP2350A specifications unless a board-level circuit modifies the corresponding signal.
+
+- **Environmental characteristics:** board-level operating temperature, humidity, ESD immunity, and thermal performance are not specified unless explicitly stated in a released qualification or validation specification.
 
 ### **2.6 Electrical Precautions** {.section-page}
 
-1. Begin first power-up from a current-limited USB source.
-2. Connect ground before external clocks, data, or analog signals.
-3. Do not connect a battery without documented polarity, chemistry, voltage,
-   connector, and charge-current compatibility.
-4. Do not power the 3.3 V rail simultaneously from the board regulator and an
-   external source unless that operating mode is explicitly approved.
-5. Do not share GPIO12–GPIO19 with other driven circuits while HSTX video is
-   active.
-6. Remove power before changing FFC/FPC, microSD, or battery connections.
+1. Use only the specified power-input ranges: 5 V nominal through USB-C, up to 6 V through VIN, or a 3.7 V nominal / 4.2 V maximum single-cell LiPo battery.
+
+2. All GPIO and onboard digital interfaces operate in the 3.3 V logic domain. **Do not apply 5 V directly to GPIO, QWIIC, microSD, HSTX, SWD, or other 3.3 V signal lines.**
+
+3. Observe the battery connector polarity before connecting a single-cell LiPo battery. Do not connect multi-cell battery packs or batteries exceeding 4.2 V.
+
+4. Do not externally drive the 3.3 V rail while the onboard regulator is active unless the external power source and operating configuration have been specifically designed for this purpose.
+
+5. Connect external circuits to a common ground before applying external clock, data, or control signals.
+
+6. Do not connect externally driven circuits to GPIO12–GPIO19 while the HSTX interface is active, as these GPIOs are used by the HSTX video output.
+
+7. Remove power before inserting, removing, or changing FFC/FPC or battery connections. Avoid inserting or removing the microSD card while a write operation is in progress.
+
+8. Ensure that the total load on the 3.3 V rail, including onboard circuitry and externally connected devices, remains within the 600 mA capability of the AP2112K-3.3 regulator.
