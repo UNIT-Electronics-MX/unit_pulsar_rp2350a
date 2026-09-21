@@ -9,8 +9,8 @@ and the compilable sketches under `software/cpp_examples/`.
 2. Add the UNIT package index to **Additional Boards Manager URLs**:
    `https://raw.githubusercontent.com/UNIT-Electronics/Uelectronics-RP2040-Arduino-Package/main/package_Uelectronics_rp2040_index.json`
 3. Install the UNIT Electronics RP2040/RP2350 package.
-4. Select **Generic RP2350** or an installed PULSAR-specific board definition.
-5. Select the RP2350A chip variant, 16 MiB flash, PSRAM CS GPIO0, and 8 MiB
+4. Select **UNIT Pulsar RP2350A** or an installed PULSAR-specific board definition.
+5. Select the RP2350A chip variant, PSRAM CS GPIO0, and 8 MiB
    PSRAM.
 6. Connect a USB-C data cable and select the enumerated serial/boot port.
 7. Open the basic Blink sketch and upload it.

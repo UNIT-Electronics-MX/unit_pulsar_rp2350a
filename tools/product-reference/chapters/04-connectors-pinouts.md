@@ -127,6 +127,9 @@ Bottom-side pads expose `SWDIO`, `SWCLK`, 3.3 V reference, and GND for an
 external debug probe. SWD supports firmware loading and source-level debug when
 the toolchain and processor architecture are configured consistently.
 
+**Silkscreen erratum:** The SWD `VCC` and `GND` labels are reversed. See
+Section 9.6 for the corrected mapping before connecting a debug probe.
+
 Use short connections, share ground, and let the probe sense the target's 3.3 V
 rail. Do not use the reference pad to power the complete board unless the debug
 probe is explicitly rated and the board power path permits it.

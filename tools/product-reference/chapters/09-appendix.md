@@ -76,3 +76,18 @@ controller described in this reference.
   CLK/CMD/DAT0/DAT3 subset.
 - The wiki's original Blink definition used GPIO22, while the V1.3 schematic
   connects `D13` / `BUILTIN1` to GPIO20. Repository examples follow GPIO20.
+
+### **9.6 Hardware Errata** {.section-page}
+
+**SWD connector: reversed VCC and GND silkscreen labels.** The `VCC` and `GND`
+labels printed beside the SWD pads on the UNIT PULSAR RP2350 board are swapped.
+Use the following corrected mapping when connecting a debug probe:
+
+| Printed silkscreen label | Actual electrical connection |
+|---|---|
+| `VCC` | `GND` (ground) |
+| `GND` | `VCC` (3.3 V reference) |
+
+Verify the pad connections against the schematic before applying power.
+Following the incorrect silkscreen labels reverses VCC and GND and may damage
+the board or the debug probe. Follow the SWD connection guidance in Section 4.8.

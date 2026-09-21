@@ -1,8 +1,7 @@
 ## **Description**
 
 The UNIT PULSAR RP2350 is a multi-interface development board in the UNIT
-DevLab ecosystem, built
-around the Raspberry Pi RP2350A microcontroller. The V1.3 design
+DevLab ecosystem, built around the Raspberry Pi RP2350A microcontroller. The V1.3 design
 combines external QSPI flash and PSRAM with motion sensing, PDM audio, microSD,
 USB-C, battery support, addressable RGB indicators, QWIIC I2C, and a 22-pin
 HSTX expansion connector.
@@ -28,6 +27,4 @@ HSTX expansion connector.
 - Three WS2812-compatible RGB LEDs plus power, charge, and user indicators
 - USB-C, QWIIC, battery, edge-pad, SWD, and HSTX connections
 
-This Product Reference describes characteristics defined by the V1.3 design
-files. Board-level values absent from those sources are identified as
-unspecified.
+
