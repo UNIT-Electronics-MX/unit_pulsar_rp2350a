@@ -135,7 +135,7 @@ adapters must match the connector contact order and differential-pair routing.
 
 ### **3.6 MicroSD Card Socket** {.section-page}
 
-The 47309-2651 socket is connected to a complete four-bit SDIO signal group:
+The onboard 47309-2651 microSD socket is connected to a complete four-bit SDIO signal group and operates in the 3.3 V logic domain.
 
 ![microSD socket location](hardware/resources/unit_wiki_microsd_pulsar_rp2350.png){width=5.2in}
 
@@ -148,75 +148,63 @@ The 47309-2651 socket is connected to a complete four-bit SDIO signal group:
 | `SDIO_DAT2` | 6 | Not used by SPI mode |
 | `SDIO_DAT3` | 7 | Chip select |
 
-The wiki examples use the SPI-compatible subset through `SPI` and `SDFS` for
-initialization, file creation, reading, directory enumeration, and logging.
-Software with four-bit SDIO support can additionally use DAT1 and DAT2. File
-writes should be flushed and closed before power removal or card extraction.
+The provided examples use the SPI-compatible subset through `SPI` and `SDFS` for initialization, file creation, reading, directory enumeration, and data logging.
 
-Card capacity, speed class, and filesystem support are software-dependent. The
-wiki workflow uses FAT32 for initial validation.
+Software with four-bit SDIO support can additionally use DAT1 and DAT2. File writes should be flushed and closed before card extraction or power removal.
+
+Card capacity, speed class, and filesystem support depend on the software environment. FAT32 is recommended for the provided examples.
 
 ### **3.7 LED Indicators** {.section-page}
 
-Three WS2812-compatible 1010 RGB LEDs form a serial chain driven by GPIO1.
-Firmware transmits one ordered color frame for all three pixels, enabling
-status colors, progress animation, and user feedback with a single GPIO.
+Three XL-1010RGBC-WS2812B addressable RGB LEDs form a serial chain driven by GPIO1. Firmware transmits an ordered color frame through the chain, allowing the three onboard pixels to provide status indication, progress animation, and user feedback from a single GPIO.
 
 ![WS2812 RGB LED locations](hardware/resources/unit_wiki_ws2812_pulsar_rp2350.png){width=5.8in}
 
-The board also contains a user indicator on GPIO20 (`D13` / `BUILTIN1`), a
-power indicator, and a charge-status indicator. The user and RGB indicators
-are firmware-controlled. The power indicator follows its rail circuit. The
-charge indicator follows the MCP73831 status output and is not a general-purpose
-GPIO indicator.
+The `RGB_PAD` solder jumper can connect the data output of the third onboard RGB LED to the castellated header. When this jumper is closed, the onboard RGB chain can be extended with compatible external addressable RGB LEDs.
+
+The board also includes a user indicator on GPIO22 (`D13` / `BUILTIN1`), a power indicator, and a battery charge-status indicator. The user LED and RGB LEDs are firmware-controlled. The power indicator follows the corresponding power rail, while the charge-status indicator is controlled by the MCP73831 `STAT` output.
 
 ![Built-in user LED location](hardware/resources/unit_wiki_led_builtin_pulsar_rp2350.png){width=5.2in}
 
-Applications should limit RGB brightness where power consumption or thermal
-rise matters. Updating the RGB chain is independent from HSTX video output.
+Applications should limit RGB brightness when power consumption or thermal rise is important. RGB LED control is independent of the HSTX video interface.
 
 ### **3.8 AP2112K and MCP73831 Power Management System** {.section-page}
 
-U1 is an AP2112K fixed 3.3 V LDO. It converts the `VSYS` power rail into the
-3.3 V domain used by RP2350A, memories, sensors, indicators, and the QWIIC
-connector. The `3EN` control is associated with regulator enable and is pulled
-up in the available schematic.
+U1 is an AP2112K fixed 3.3 V LDO regulator. It converts the `VSYS` rail into the regulated 3.3 V logic domain used by the RP2350A, external memories, sensors, indicators, microSD interface, and QWIIC connector. The regulator supports up to 600 mA total output current, shared between the onboard circuitry and any external load connected to the 3.3 V rail.
 
-IC2 is an MCP73831 single-cell Li-Ion/Li-Polymer charge controller. It connects
-the USB-derived supply, charge programming network, `VBAT`, and status
-indicator. The actual charge current is set by the charge-configuration network;
-the charger's component maximum is not a module-level charge-current rating.
+The AP2112K `EN` signal controls the 3.3 V regulator. The `EN_PAD` solder jumper allows this signal to be routed to the castellated header, providing external control of the regulator enable function when the jumper is closed.
 
-Schottky diodes and MOSFETs implement source routing and protection around USB,
-`VIN`, `VSYS`, and battery nets. Do not assume ideal-diode behavior, seamless
-switchover, or reverse-current protection beyond what is explicitly defined by
-the schematic and module specifications.
+IC2 is an MCP73831T-2ACI/OT single-cell Li-Ion/LiPo battery charge controller. Hardware V1.3.0 is configured for a nominal charge current of 200 mA. The charge current is established by the PROG resistor and may be modified by changing this resistor according to the MCP73831 configuration requirements.
+
+The battery input is intended for a single-cell LiPo battery with a nominal voltage of 3.7 V and a maximum fully charged voltage of 4.2 V. The battery path includes reverse-polarity protection.
+
+The `VBAT_PAD` solder jumper allows the battery rail to be connected to the castellated header. When closed, the battery voltage can be accessed directly from the corresponding header position for external circuitry.
+
+The board power-path circuitry combines USB, `VIN`, battery, `VSYS`, and the regulated 3.3 V domain. Schottky diodes and MOSFETs provide source routing and battery protection according to the implemented hardware design.
 
 ### **3.9 Power Tree** {.section-page}
 
 ![](hardware/resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.jpg){width=7.0in}
 
-The diagram is a functional power tree, not a replacement for the schematic.
-USB-C VBUS, `VIN`, and battery are represented in the power-path design.
-Board-level limits, source priority, and transient behavior are not specified
-by the available documentation.
+The power tree summarizes the main supply domains and their relationship within the UNIT PULSAR RP2350A. It is intended as a functional reference and does not replace the complete schematic.
 
-The 3.3 V rail supplies onboard logic and is also exposed at the edge and
-QWIIC connector. Available current for an external load equals regulator
-capability minus all board consumption and thermal derating; that value is not
-specified at module level.
+The board can be powered from USB-C, `VIN`, or a single-cell LiPo battery. These sources are routed through the onboard power-path circuitry to the `VSYS` domain. The AP2112K-3.3 then generates the regulated 3.3 V rail used by the RP2350A and onboard peripherals.
+
+The 3.3 V rail is also available through the castellated headers and QWIIC connector. The AP2112K provides up to 600 mA total output current. This current is shared between the RP2350A, memories, sensors, LEDs, microSD interface, and externally connected 3.3 V devices.
+
+The current available to external loads therefore depends on the active onboard circuitry and application workload. The total 3.3 V load must remain within the regulator output capability.
+
+The `VBAT_PAD` and `EN_PAD` solder jumpers provide optional access to the battery rail and regulator-enable control through the castellated headers.
 
 ### **3.10 BMI270 Motion Sensor** {.section-page}
 
-The BMI270 combines a three-axis accelerometer and three-axis gyroscope. It is
-connected to GPIO8 (`SDA`) and GPIO9 (`SCL`) on the internal/user I2C bus. The
-wiki initializes it by scanning its supported address options and then reads
-acceleration and angular-rate samples.
+The onboard BMI270 combines a three-axis accelerometer and three-axis gyroscope. It is connected to GPIO8 (`SDA`) and GPIO9 (`SCL`) on the internal I2C bus. Firmware can detect the sensor through its supported I2C address configuration and read acceleration and angular-rate data.
 
-Typical board applications include orientation interfaces, motion-triggered
-logging, gesture input, vibration observation, and control of HSTX graphics.
-Measurement ranges, filtering, output data rate, and interrupt behavior are
-configured through the BMI270 driver and are not fixed by the PCB.
+The `INT_PAD` solder jumper provides an optional hardware interrupt connection between the BMI270 and GPIO12 of the RP2350A. When the jumper is closed, BMI270 interrupt events can be routed directly to GPIO12 for interrupt-driven applications without continuous polling.
+
+Typical applications include orientation interfaces, motion-triggered logging, gesture input, vibration monitoring, and motion-controlled graphics or user interfaces.
+
+Measurement range, filtering, output data rate, interrupt source, and interrupt behavior are configured through the BMI270 registers or software driver and are not fixed by the PCB.
 
 ### **3.11 PDM Microphone** {.section-page}
 
