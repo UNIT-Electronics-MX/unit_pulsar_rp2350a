@@ -17,7 +17,7 @@ LEDs provide high-speed and visual outputs.
 
 ### **3.2 Board Topology** {.section-page}
 
-![](hardware/resources/unit_topology_v1_3_0_ue0103_pulsar_rp2350a.png){width=3.5in}
+![](hardware/resources/unit_topology_v1_3_0_ue0103_pulsar_rp2350a.png){width=7.0in}
 
 The top side groups programming, processing, memory, and user-visible controls.
 USB-C, BOOT, reset, QSPI flash, PSRAM, RP2350A, QWIIC, and RGB indicators are
@@ -36,8 +36,6 @@ audio, SWD, and HSTX connections.
 The two edge-pad rows expose power, analog, serial, and general-purpose
 signals. Some HSTX-routed signals are shared with edge positions, so firmware
 ownership must be decided before enabling high-speed video.
-
-![](hardware/resources/unit_topology_v1_3_0_ue0103_pulsar_rp2350a.jpg){width=3.5in}
 
 ### **3.3 Processor** {.section-page}
 
