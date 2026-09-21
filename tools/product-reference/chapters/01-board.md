@@ -16,7 +16,7 @@ The following optional accessories are recommended for use with the UNIT PULSAR 
 |---|---|---|
 | [QWIIC cable](https://uelectronics.com/producto/arnes-qwiic-4-pines-pitch-1mm/) | External I2C expansion | 4-pin, 1 mm pitch cable for connecting compatible 3.3 V QWIIC devices |
 | USB-C data cable | Power, programming, and USB serial | Must support data; a charge-only cable cannot upload firmware |
-| [Kingston microSD card](https://uelectronics.com/producto/memoria-micro-sd-kingston-16-64-gb-clase-10/) | Removable storage and data logging | Class 10 microSD card; FAT32 formatting is recommended for the provided examples |
+| [MicroSD card](https://uelectronics.com/producto/memoria-micro-sd-kingston-16-64-gb-clase-10/) | Removable storage and data logging | Class 10 microSD card; FAT32 formatting is recommended for the provided examples |
 | [UNIT DevLab DVI to FPC Adapter](https://uelectronics.com/producto/adaptador-dvi-a-fpc-unit-devlab/) | HSTX DVI-compatible video output | Recommended adapter for using the board's HSTX video interface through the 22-pin FPC connector |
 | 22-pin FPC cable | Connection between the HSTX connector and DVI adapter | 22-position, 0.5 mm pitch; planned for future availability from UNIT Electronics |
 | [LiPo 3.7 V 650 mAh Battery](https://uelectronics.com/producto/bateria-lipo-3-7v-650mah-802535/) | Battery-powered operation | Recommended single-cell LiPo battery; verify polarity and connector orientation before connection |
@@ -65,8 +65,7 @@ labels, RP2350A, flash, PSRAM, QWIIC connector, oscillator, and three RGB LEDs.
 
 ![](hardware/resources/unit_btm_v_1_3_0_pulsar_rp2350a.png){width=3.2in}
 
-The bottom view identifies the battery polarity marks, microSD socket, onboard
-microphone, SWD pads, HSTX connector, and V1.3.0 revision marking.
+The bottom view identifies the battery polarity marks, microSD socket, microphone acoustic port, SWD pads, HSTX connector, and V1.3.0 revision marking.
 
 ### **1.5 Handling** {.section-page}
 
