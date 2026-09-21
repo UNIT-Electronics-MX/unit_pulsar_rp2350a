@@ -10,18 +10,18 @@ connector are accessible from the bottom side.
 
 ### **1.1 Accessories** {.section-page}
 
-The UNIT PULSAR RP2350A includes a QWIIC cable for connecting compatible I2C devices. Additional accessories are available depending on the application.
+The following optional accessories are recommended for use with the UNIT PULSAR RP2350A. Select accessories according to the interfaces and features required by the application.
 
-| Accessory | Included | Purpose | Selection notes |
-|---|---|---|---|
-| QWIIC cable | Yes | External I2C expansion | Included with the board; compatible with 3.3 V QWIIC devices |
-| USB-C data cable | No | Power, programming, and USB serial | Must support data; a charge-only cable cannot upload firmware |
-| Kingston microSD card | No | Removable storage and data logging | FAT32 formatting is recommended for the provided examples |
-| UNIT DevLab DVI to FPC Adapter | No | HSTX DVI-compatible video output | Recommended adapter for connecting the HSTX video interface |
-| 22-pin FPC cable | No | Connection between the HSTX interface and DVI adapter | 22-position, 0.5 mm pitch; available soon from UNIT Electronics |
-| LiPo 3.7 V 650 mAh Battery | No | Battery-powered operation | Recommended single-cell LiPo battery; verify polarity and connector orientation before connection |
+| Accessory | Purpose | Selection notes |
+|---|---|---|
+| [QWIIC cable](https://uelectronics.com/producto/arnes-qwiic-4-pines-pitch-1mm/) | External I2C expansion | 4-pin, 1 mm pitch cable for connecting compatible 3.3 V QWIIC devices |
+| USB-C data cable | Power, programming, and USB serial | Must support data; a charge-only cable cannot upload firmware |
+| [Kingston microSD card](https://uelectronics.com/producto/memoria-micro-sd-kingston-16-64-gb-clase-10/) | Removable storage and data logging | Class 10 microSD card; FAT32 formatting is recommended for the provided examples |
+| [UNIT DevLab DVI to FPC Adapter](https://uelectronics.com/producto/adaptador-dvi-a-fpc-unit-devlab/) | HSTX DVI-compatible video output | Recommended adapter for using the board's HSTX video interface through the 22-pin FPC connector |
+| 22-pin FPC cable | Connection between the HSTX connector and DVI adapter | 22-position, 0.5 mm pitch; planned for future availability from UNIT Electronics |
+| [LiPo 3.7 V 650 mAh Battery](https://uelectronics.com/producto/bateria-lipo-3-7v-650mah-802535/) | Battery-powered operation | Recommended single-cell LiPo battery; verify polarity and connector orientation before connection |
 
-Verify connector type, orientation, polarity, voltage domain, and pinout before connecting third-party accessories.
+Verify connector type, orientation, polarity, voltage domain, and pinout before connecting accessories.
 
 ### **1.2 Board Identification**
 
