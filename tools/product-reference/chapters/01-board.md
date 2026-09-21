@@ -14,12 +14,12 @@ The UNIT PULSAR RP2350A includes a QWIIC cable for connecting compatible I2C dev
 
 | Accessory | Included | Purpose | Selection notes |
 |---|---|---|---|
-| [QWIIC cable](https://uelectronics.com/producto/arnes-qwiic-4-pines-pitch-1mm/) | Yes | External I2C expansion | Included with the board; compatible with 3.3 V QWIIC devices |
+| QWIIC cable | Yes | External I2C expansion | Included with the board; compatible with 3.3 V QWIIC devices |
 | USB-C data cable | No | Power, programming, and USB serial | Must support data; a charge-only cable cannot upload firmware |
-| [MicroSD card](https://uelectronics.com/producto/memoria-micro-sd-kingston-16-64-gb-clase-10/) | No | Removable storage and data logging | FAT32 formatting is recommended for the provided examples |
-| [UNIT DevLab DVI to FPC Adapter](https://uelectronics.com/producto/adaptador-dvi-a-fpc-unit-devlab/) | No | HSTX DVI-compatible video output | Recommended adapter for connecting the HSTX video interface |
+| Kingston microSD card | No | Removable storage and data logging | FAT32 formatting is recommended for the provided examples |
+| UNIT DevLab DVI to FPC Adapter | No | HSTX DVI-compatible video output | Recommended adapter for connecting the HSTX video interface |
 | 22-pin FPC cable | No | Connection between the HSTX interface and DVI adapter | 22-position, 0.5 mm pitch; available soon from UNIT Electronics |
-| [LiPo 3.7 V 650 mAh Battery](https://uelectronics.com/producto/bateria-lipo-3-7v-650mah-802535/) | No | Battery-powered operation | Recommended single-cell LiPo battery; verify polarity and connector orientation before connection |
+| LiPo 3.7 V 650 mAh Battery | No | Battery-powered operation | Recommended single-cell LiPo battery; verify polarity and connector orientation before connection |
 
 Verify connector type, orientation, polarity, voltage domain, and pinout before connecting third-party accessories.
 
