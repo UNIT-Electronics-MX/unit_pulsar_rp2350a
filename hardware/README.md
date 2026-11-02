@@ -7,6 +7,10 @@ separates design-defined connections from values not specified by the available
 board-level documentation. The board uses an RP2350A controller; the schematic
 title block says `PULSAR RP230A` and `REV: 1.0.0`.
 
+| Field | Value |
+|---|---|
+| MPN | UE0103 |
+
 ## Power Tree
 
 ![Power Tree](resources/unit_power_tree_v_1_0_0_ue0103_pulsar_rp2350a.jpg)
