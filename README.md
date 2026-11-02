@@ -30,6 +30,7 @@ HSTX expansion connector.
 
 | Feature | Description |
 |---|---|
+| MPN | UE0103 |
 | Microcontroller | Raspberry Pi RP2350A |
 | Program Memory | W25Q128JVPIQ 128 Mbit (16 MiB) QSPI flash |
 | External Memory | APS6404L-3SQR-ZR 8 MiB PSRAM |
