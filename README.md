@@ -18,8 +18,8 @@ HSTX expansion connector.
 ### Quick Setup
 
 [<img src="https://img.shields.io/badge/Product%20Wiki-blue?style=for-the-badge" alt="Product Wiki">](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/wiki)
-[<img src="https://img.shields.io/badge/Datasheet-green?style=for-the-badge" alt="Datasheet">](https://unit-electronics-mx.github.io/unit_pulsar_rp2350a/hardware/unit_product_reference_v_0_1_0_pulsar_rp2350a.pdf)
-[<img src="https://img.shields.io/badge/Buy%20Now-orange?style=for-the-badge" alt="Buy Now">](https://uelectronics.com/)
+[<img src="https://img.shields.io/badge/Datasheet-green?style=for-the-badge" alt="Datasheet">](docs/hardware/unit_product_reference_v_0_1_0_pulsar_rp2350a.pdf)
+[<img src="https://img.shields.io/badge/Buy%20Now-orange?style=for-the-badge" alt="Buy Now">](https://uelectronics.com/producto/pulsar-rp2350a-sense-imu-microfono-unit-devlab/)
 [<img src="https://img.shields.io/badge/Getting%20Started-purple?style=for-the-badge" alt="Getting Started">](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/wiki/0-Getting-Started)
 
 </div>
@@ -63,13 +63,3 @@ HSTX expansion connector.
 All hardware and documentation in this project are licensed under the **MIT
 License**. See the [repository license](https://github.com/UNIT-Electronics-MX/unit_pulsar_rp2350a/blob/main/LICENSE)
 for details. Third-party reference files may have separate terms.
-
-<div align="center">
-  <sub>Template created by UNIT Electronics</sub>
-</div>
-
-> **Documentation Note:**
-> Electrical limits, mechanical dimensions, and connector orientation not
-> defined by the V1.3 technical documentation are identified as unspecified.
-> The board uses the RP2350A, while the schematic title block says
-> `PULSAR RP230A` and revision `1.0.0`.
