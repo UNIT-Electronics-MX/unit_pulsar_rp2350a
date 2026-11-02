@@ -119,6 +119,7 @@ CONTENTS_FILE="$TEMP_DIR/contents.md"
       text=$0
       sub(/^## /, "", text)
       gsub(/\*\*/, "", text)
+      sub(/[[:space:]]+\{\.section-page\}$/, "", text)
       sub(/[[:space:]]+$/, "", text)
       print "- [" text "]{.toc-entry}"
     }
@@ -126,6 +127,7 @@ CONTENTS_FILE="$TEMP_DIR/contents.md"
       text=$0
       sub(/^### /, "", text)
       gsub(/\*\*/, "", text)
+      sub(/[[:space:]]+\{\.section-page\}$/, "", text)
       sub(/[[:space:]]+$/, "", text)
       print "  - [" text "]{.toc-entry}"
     }
